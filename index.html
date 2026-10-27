@@ -344,12 +344,18 @@ function pickVoice() {
 function speak(text, slow) {
   if (!hasSpeech) return;
   try {
-    speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = VOICE ? VOICE.lang : "fr-CA";
     if (VOICE) u.voice = VOICE;
-    u.rate = (slow || S.slow) ? 0.62 : 0.9;
-    speechSynthesis.speak(u);
+    u.rate = (slow || S.slow) ? 0.55 : 0.9;
+    clearTimeout(speak._t);
+    if (speechSynthesis.speaking || speechSynthesis.pending) {
+      // iOS Safari drops an utterance queued right after cancel(), so wait a moment
+      speechSynthesis.cancel();
+      speak._t = setTimeout(() => { try { speechSynthesis.speak(u); } catch (e) {} }, 180);
+    } else {
+      speechSynthesis.speak(u);
+    }
   } catch (e) {}
 }
 if (hasSpeech) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; setTimeout(pickVoice, 800); }
