@@ -94,6 +94,20 @@ main { padding-block: 22px 60px; }
 .tile p { margin: 2px 0 0; color: var(--muted); font-size: .92rem; line-height: 1.35; }
 .tile .uses { display: inline-block; margin-top: 6px; font-size: .75rem; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--teal); }
 
+.videos { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(16px, 3vw, 24px); display: grid; gap: 16px; box-shadow: var(--shadow); scroll-margin-top: 150px; }
+.vid-top { display: flex; gap: 14px; align-items: center; }
+.vid-badge { flex: none; width: 58px; height: 58px; border-radius: 16px; display: grid; place-items: center; color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--card)); }
+.videos h2 { font-size: 1.6rem; font-weight: 800; }
+.videos p { margin: 2px 0 0; color: var(--muted); max-width: 60ch; }
+.vid-lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.vid-card { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border: 2px solid var(--line); border-radius: 14px; text-decoration: none; color: var(--ink); background: var(--paper); }
+.vid-card:hover { border-color: var(--accent); }
+.vid-card .emoji { font-size: 32px; }
+.vid-card b { display: block; font-size: 1.05rem; }
+.vid-card small { display: block; color: var(--muted); font-size: .88rem; line-height: 1.3; }
+.btn.vid-btn { justify-self: start; background: var(--accent); border-color: var(--accent); color: #fff; text-decoration: none; }
+a.iconbtn { text-decoration: none; color: var(--ink); }
+@media (max-width: 480px) { .bar .iconbtn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } .bar .iconbtn { padding: 10px 12px; } }
 details.teacher { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 18px; }
 details.teacher summary { font-weight: 700; cursor: pointer; }
 details.teacher .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 10px; }
@@ -131,7 +145,7 @@ details.teacher p, details.teacher li { color: var(--muted); font-size: .92rem; 
 .word { font-family: var(--font-body); font-weight: 700; letter-spacing: .5px; }
 
 /* flashcard */
-.flash { display: grid; justify-items: center; gap: 18px; text-align: center; }
+.flash { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 18px; text-align: center; }
 .flash .big { font-size: clamp(110px, 22vw, 180px); min-height: 1.1em; display: grid; place-items: center; }
 .flash .big .week { font-size: clamp(110px, 22vw, 180px); }
 .flash .word { font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: 1.1; }
@@ -226,6 +240,56 @@ canvas#trace { display: block; width: 100%; touch-action: none; cursor: crosshai
 .bravo.show { display: block; }
 .bravo .btn { margin-top: 8px; font-family: var(--font-body); font-size: 1rem; color: var(--ink); }
 
+/* mémoire */
+.mem { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; max-width: 600px; margin: 0 auto; }
+@media (max-width: 560px) { .mem { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mcard { aspect-ratio: 1; max-width: 100%; border-radius: 16px; border: 3px solid var(--line); background: var(--teal); position: relative; padding: 6px; }
+.mcard .mback { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; color: var(--card); }
+.mcard .face { display: none; height: 100%; align-content: center; justify-items: center; gap: 6px; }
+.mcard .face .p { font-size: clamp(40px, 8vw, 64px); line-height: 1; }
+.mcard .face .p .week { font-size: clamp(40px, 8vw, 60px); }
+.mcard .face .w { font-weight: 700; font-size: .95rem; line-height: 1.15; text-align: center; }
+.mcard.up { background: var(--card); }
+.mcard.up .mback { display: none; }
+.mcard.up .face { display: grid; }
+.mcard.found { border-color: var(--ok); background: var(--ok-soft); }
+
+/* bâtis la phrase */
+.frame { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; font-family: var(--font-body); font-weight: 700; font-size: clamp(1.6rem, 5vw, 2.4rem); margin-bottom: 16px; text-align: center; }
+.frame .slot { display: inline-flex; align-items: center; gap: 10px; min-width: 4.5em; min-height: 1.8em; justify-content: center; padding: 4px 16px; border: 3px dashed var(--teal); border-radius: 14px; color: var(--muted); }
+.frame .slot.filled { border-style: solid; color: var(--ink); background: var(--teal-soft); }
+.frame .slot .p { font-size: 1.2em; line-height: 1; }
+.frame .slot .p .week { font-size: 1.1em; }
+.pickgrid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+
+/* jacques a dit */
+.simon { display: grid; gap: 4px; justify-items: center; }
+.simon .who { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; color: var(--teal); }
+.simon .who.gone { visibility: hidden; }
+
+/* qu'est-ce qui manque */
+.mgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; width: 100%; max-width: 640px; }
+.mslot { display: grid; justify-items: center; align-content: center; gap: 6px; min-height: 150px; border: 3px solid var(--line); border-radius: 16px; background: var(--card); padding: 10px; }
+.mslot .p { font-size: 64px; line-height: 1; }
+.mslot .p .week { font-size: 58px; }
+.mslot .w { font-weight: 700; text-align: center; }
+.mslot.empty { border-style: dashed; border-color: var(--accent); color: var(--accent); font-family: var(--font-display); font-weight: 800; font-size: 3rem; }
+#stage.blink .mgrid { opacity: 0; transition: opacity .3s; }
+
+/* lettre manquante */
+.spell { font-size: clamp(2.2rem, 8vw, 3.8rem); letter-spacing: .06em; }
+.spell .gap { display: inline-block; min-width: .75em; border-bottom: 5px solid var(--accent); color: var(--accent); text-align: center; }
+.spell .gap.filled { color: var(--ok); border-color: var(--ok); }
+.letters { display: flex; gap: 14px; justify-content: center; }
+.lt { width: 84px; height: 84px; border-radius: 18px; border: 3px solid var(--line); background: var(--card); font-family: var(--font-body); font-weight: 700; font-size: 2.4rem; }
+.lt.good { border-color: var(--ok); background: var(--ok-soft); }
+.lt.nope { opacity: .35; }
+
+/* enregistre-toi */
+.recrow { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.mic.live { background: var(--accent); border-color: var(--accent); animation: pulse 1.2s ease infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 25%, transparent); } }
+
 html.calm *, html.calm *::before, html.calm *::after { animation: none !important; transition: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -246,9 +310,13 @@ html.calm *, html.calm *::before, html.calm *::after { animation: none !importan
         <span><b>Pas à pas</b><small>Français de base · 4<sup>e</sup>–5<sup>e</sup> année</small></span>
       </a>
       <span class="spacer"></span>
+      <a class="iconbtn vidlink" href="#videos">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9 L15.5 12 L10 15 Z" fill="var(--card)"/></svg>
+        <span class="lbl">Vidéos</span>
+      </a>
       <button class="iconbtn" id="setBtn" aria-expanded="false" aria-controls="settings">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-        Réglages
+        <span class="lbl">Réglages</span>
       </button>
     </div>
     <div class="settings" id="settings" hidden>
@@ -314,7 +382,37 @@ const THEMES = [
   { id: "meteo", name: "La météo", words: [
     {fr:"il fait soleil", e:"☀️"}, {fr:"il pleut", e:"🌧️"}, {fr:"il neige", e:"❄️"}, {fr:"il fait du vent", e:"💨"},
     {fr:"il fait chaud", e:"🥵"}, {fr:"il fait froid", e:"🥶"}, {fr:"il y a des nuages", e:"☁️"}, {fr:"il y a un orage", e:"⛈️"} ] },
-  { id: "jours", name: "Les jours", words: DAYS.map((d, i) => ({fr:d, day:i})) }
+  { id: "jours", name: "Les jours", words: DAYS.map((d, i) => ({fr:d, day:i})) },
+  { id: "besoins", name: "J'ai besoin de…", words: [
+    {fr:"les toilettes", s:"d'aller aux toilettes", e:"🚻"}, {fr:"l'eau", s:"d'eau", e:"💧"}, {fr:"l'aide", s:"d'aide", e:"🙋"},
+    {fr:"une pause", s:"d'une pause", e:"⏸️"}, {fr:"un crayon", s:"d'un crayon", e:"✏️"}, {fr:"un mouchoir", s:"d'un mouchoir", e:"🤧"},
+    {fr:"bouger", s:"de bouger", e:"🏃"}, {fr:"une collation", s:"d'une collation", e:"🥪"} ] },
+  { id: "emotions", name: "Les émotions", words: [
+    {fr:"content", f:"contente", e:"😀"}, {fr:"triste", e:"😢"}, {fr:"fâché", f:"fâchée", e:"😠"}, {fr:"fatigué", f:"fatiguée", e:"😴"},
+    {fr:"calme", e:"😌"}, {fr:"nerveux", f:"nerveuse", e:"😬"}, {fr:"surpris", f:"surprise", e:"😮"}, {fr:"malade", e:"🤒"} ] },
+  { id: "consignes", name: "Les consignes", words: [
+    {fr:"écoute", e:"👂"}, {fr:"regarde", e:"👀"}, {fr:"assieds-toi", e:"🪑"}, {fr:"lève-toi", e:"🧍"},
+    {fr:"lève la main", e:"✋"}, {fr:"range tes affaires", e:"🧺"}, {fr:"aligne-toi", e:"🚶"}, {fr:"chut !", e:"🤫"},
+    {fr:"lis", e:"📖"}, {fr:"écris", e:"✍️"} ] },
+  { id: "ecole", name: "L'école", words: [
+    {fr:"la classe", e:"🏫"}, {fr:"le gymnase", e:"🏀"}, {fr:"la bibliothèque", e:"📚"}, {fr:"le bureau", e:"🗂️"},
+    {fr:"la cour", e:"🛝"}, {fr:"l'autobus", e:"🚌"}, {fr:"l'enseignant", f:"l'enseignante", e:"🧑‍🏫"},
+    {fr:"l'ami", f:"l'amie", e:"🧑‍🤝‍🧑"}, {fr:"la récréation", e:"⚽"} ] },
+  { id: "routine", name: "La routine du matin", words: [
+    {fr:"Quelle est la date ?", e:"📅"}, {fr:"Quel temps fait-il ?", e:"🌤️"}, {fr:"Comment ça va ?", e:"🙂"},
+    {fr:"présent", f:"présente", e:"🙋"}, {fr:"Je m'appelle…", e:"📛"}, {fr:"Bonne journée !", e:"🌞"} ] },
+  { id: "halloween", name: "L'Halloween", words: [
+    {fr:"la citrouille", e:"🎃"}, {fr:"le fantôme", e:"👻"}, {fr:"le sorcier", f:"la sorcière", e:"🧙‍♂️", ef:"🧙‍♀️"}, {fr:"la chauve-souris", e:"🦇"},
+    {fr:"l'araignée", e:"🕷️"}, {fr:"les bonbons", e:"🍬"}, {fr:"le costume", e:"🎭"}, {fr:"la lune", e:"🌕"}, {fr:"le squelette", e:"💀"} ] },
+  { id: "hiver", name: "L'hiver", words: [
+    {fr:"la neige", e:"🌨️"}, {fr:"le bonhomme de neige", e:"⛄"}, {fr:"le traîneau", e:"🛷"}, {fr:"les patins", e:"⛸️"},
+    {fr:"la glace", e:"🧊"}, {fr:"le chocolat chaud", e:"☕"}, {fr:"le ski", e:"🎿"}, {fr:"le pingouin", e:"🐧"} ] },
+  { id: "noel", name: "Noël", words: [
+    {fr:"le père Noël", f:"la mère Noël", e:"🎅", ef:"🤶"}, {fr:"le cadeau", e:"🎁"}, {fr:"le sapin", e:"🎄"}, {fr:"l'étoile", e:"⭐"},
+    {fr:"la cloche", e:"🔔"}, {fr:"le renne", e:"🦌"}, {fr:"la chandelle", e:"🕯️"}, {fr:"le biscuit", e:"🍪"} ] },
+  { id: "canada", name: "Le Canada", words: [
+    {fr:"le hockey", e:"🏒"}, {fr:"la feuille d'érable", e:"🍁"}, {fr:"le sirop d'érable", e:"🥞"}, {fr:"le castor", e:"🦫"},
+    {fr:"l'orignal", e:"🫎"}, {fr:"le canot", e:"🛶"}, {fr:"la poutine", e:"🍟"}, {fr:"l'ours polaire", e:"🐻‍❄️"}, {fr:"le lac", e:"🏞️"} ] }
 ];
 
 /* ------------------------------------------------------------------ state + storage */
@@ -397,8 +495,20 @@ const IC = {
   colorie: '<path d="M20 4 C30 4 37 11 37 19 C37 25 32 26 28 25 C24 24 22 27 24 31 C25 34 23 36 20 36 C10 36 3 29 3 20 C3 11 10 4 20 4 Z" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="12" cy="17" r="3" fill="#E63946"/><circle cx="19" cy="11" r="3" fill="#FFD23F"/><circle cx="28" cy="13" r="3" fill="#3A86FF"/><circle cx="11" cy="26" r="3" fill="#2DC653"/>',
   trie: '<rect x="3" y="20" width="15" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="22" y="20" width="15" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="13" y="4" width="13" height="11" rx="2.5" fill="currentColor"/>',
   points: '<circle cx="8" cy="30" r="3.2" fill="currentColor"/><circle cx="20" cy="8" r="3.2" fill="currentColor"/><circle cx="32" cy="30" r="3.2" fill="currentColor"/><path d="M8 30 L20 8 L32 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 3"/>',
-  associe: '<rect x="3" y="6" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="25" y="22" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 12 C24 12 16 28 25 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>'
+  associe: '<rect x="3" y="6" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="25" y="22" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 12 C24 12 16 28 25 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+  memoire: '<rect x="3" y="5" width="14" height="18" rx="3" fill="currentColor"/><rect x="23" y="5" width="14" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="3" y="27" width="14" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="23" y="27" width="14" height="10" rx="3" fill="currentColor"/>',
+  phrase: '<rect x="3" y="14" width="10" height="12" rx="2.5" fill="currentColor"/><rect x="15" y="14" width="10" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="3 2.5"/><rect x="27" y="14" width="10" height="12" rx="2.5" fill="currentColor"/>',
+  jacques: '<circle cx="20" cy="7" r="4.5" fill="currentColor"/><path d="M20 12 L20 25 M20 25 L13 36 M20 25 L27 36 M20 16 L9 9 M20 16 L31 11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>',
+  manque: '<rect x="3" y="3" width="15" height="15" rx="3" fill="currentColor"/><rect x="22" y="3" width="15" height="15" rx="3" fill="currentColor"/><rect x="3" y="22" width="15" height="15" rx="3" fill="currentColor"/><rect x="22" y="22" width="15" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 2.5"/><text x="29.5" y="34" text-anchor="middle" font-size="12" font-weight="800" fill="currentColor">?</text>',
+  lettre: '<text x="8" y="29" text-anchor="middle" font-size="19" font-weight="800" fill="currentColor" font-family="sans-serif">c</text><rect x="14" y="11" width="12" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="3 2.5"/><text x="32.5" y="29" text-anchor="middle" font-size="19" font-weight="800" fill="currentColor" font-family="sans-serif">t</text>',
+  enregistre: '<rect x="14" y="3" width="12" height="21" rx="6" fill="currentColor"/><path d="M8 18 Q8 30 20 30 Q32 30 32 18 M20 30 L20 37 M13 37 L27 37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>'
 };
+const VIDEO_LISTS = [
+  {t:"Français en mouvement", d:"Écoute, copie les gestes, répète.", e:"🕺"},
+  {t:"Promenades actives", d:"Une promenade virtuelle en français.", e:"🚶"},
+  {t:"Jeux actifs", d:"Quatre coins, statues, Jacques a dit.", e:"🎲"},
+  {t:"Jeux du Canada", d:"Provinces, capitales et monuments.", e:"🍁"}
+];
 const ACTS = [
   {id:"ecoute", t:"Écoute et répète", d:"Écoute le mot. Dis-le trois fois.", uses:"thème", bg:"var(--teal-soft)", fg:"var(--teal)"},
   {id:"lis", t:"Lis et répète", d:"Lis le mot à voix haute, puis vérifie.", uses:"thème", bg:"#FFF1C9", fg:"#9A6B00"},
@@ -407,7 +517,13 @@ const ACTS = [
   {id:"colorie", t:"Colorie par numéro", d:"Lis le numéro, trouve la couleur.", uses:"couleurs + nombres", bg:"#FFE5E8", fg:"#B3122A"},
   {id:"trie", t:"Trie les mots", d:"Mets chaque mot dans la bonne boîte.", uses:"thème", bg:"#E2F5EA", fg:"#1E7A4C"},
   {id:"points", t:"Relie les points", d:"Compte en français et découvre l'image.", uses:"nombres", bg:"#FFEEDD", fg:"#B85A00"},
-  {id:"associe", t:"Associe", d:"Relie chaque image à son mot.", uses:"thème", bg:"#E0F4F7", fg:"#0F6F80"}
+  {id:"associe", t:"Associe", d:"Relie chaque image à son mot.", uses:"thème", bg:"#E0F4F7", fg:"#0F6F80"},
+  {id:"memoire", t:"Mémoire", d:"Retourne les cartes. Trouve les paires.", uses:"thème", bg:"", fg:"#7A4CC2"},
+  {id:"phrase", t:"Bâtis la phrase", d:"Choisis une image pour finir la phrase.", uses:"thème", bg:"", fg:"#C2410C"},
+  {id:"jacques", t:"Jacques a dit", d:"Écoute bien. Bouge seulement si Jacques le dit !", uses:"mouvement", bg:"", fg:"#0F7C7A"},
+  {id:"manque", t:"Qu'est-ce qui manque ?", d:"Regarde les images. Laquelle est partie ?", uses:"thème", bg:"", fg:"#2B5FD9"},
+  {id:"lettre", t:"La lettre manquante", d:"Trouve la lettre qui manque dans le mot.", uses:"thème", bg:"", fg:"#B3122A"},
+  {id:"enregistre", t:"Enregistre-toi", d:"Dis le mot au micro. Écoute ta voix.", uses:"thème · micro", bg:"", fg:"#1E7A4C"}
 ];
 
 /* ------------------------------------------------------------------ chrome: theme chips + settings */
@@ -467,11 +583,18 @@ function home() {
       '<a class="tile" href="#' + a.id + '"><span class="ic" style="background:color-mix(in srgb, ' + a.fg + ' 16%, var(--card));color:' + a.fg + '"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">' + IC[a.id] + "</svg></span>" +
       "<span><h3>" + a.t + "</h3><p>" + a.d + '</p><span class="uses">' + a.uses + "</span></span></a>"
     ).join("") + "</div>" +
+    '<section class="videos" id="videos-sec" aria-labelledby="vid-h">' +
+      '<div class="vid-top"><span class="vid-badge" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="currentColor"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></span>' +
+      '<div><h2 id="vid-h">Mes vidéos</h2><p>Bouge, danse et parle en français ! Des vidéos à faire en classe, debout et en mouvement.</p></div></div>' +
+      '<div class="vid-lists">' + VIDEO_LISTS.map(v =>
+        '<a class="vid-card" href="https://www.youtube.com/@Mp-churchvillep799/playlists" target="_blank" rel="noopener"><span class="emoji" aria-hidden="true">' + v.e + '</span><span><b>' + v.t + '</b><small>' + v.d + '</small></span></a>').join("") + '</div>' +
+      '<a class="btn vid-btn" href="https://www.youtube.com/@Mp-churchvillep799" target="_blank" rel="noopener">▶ Voir la chaîne YouTube</a>' +
+    '</section>' +
     '<details class="teacher"><summary>For teachers and families</summary><div class="cols">' +
       "<div><h4>Who it's for</h4><p>Beginner Grade 4–5 Core French learners who need extra repetition, picture support, audio, and low-pressure practice. There are no timers, scores or lives. Wrong answers get a gentle hint and another try.</p></div>" +
       "<div><h4>Themes</h4><p>" + THEMES.map(t => esc(t.name)).join(" · ") + ". These are common beginner Core French topics. Check them against your own long-range plans; this site doesn't claim to cover specific curriculum expectations.</p></div>" +
       "<div><h4>Audio</h4><p>Words are read by the device's French voice (Canadian French when available). It works best in Chrome or Edge. If you hear English, add a French voice in the computer's language settings. <b>Réglages → Voix lente</b> slows it down.</p></div>" +
-      "<div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li><li><b>le masculin / la féminin</b> switches every word that has a feminine form: colours (vert → verte), animals (le lapin → la lapine), family (le père → la mère), un → une. Nouns with a fixed gender (le crayon, la pomme) stay as they are. <i>Chat</i> and <i>chien</i> are left in the masculine on purpose, since <i>chatte</i> and <i>chienne</i> can draw giggles at this age.</li></ul></div>" +
+      "<div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li><li><b>Bâtis la phrase</b> has no wrong answers: students choose what they want to say (<i>Je suis fatigué</i>, <i>J'ai besoin d'une pause</i>), so it doubles as a communication board</li><li><b>Enregistre-toi</b> needs microphone permission. Recordings stay in the browser and are deleted when the student leaves the activity; nothing is uploaded.</li><li><b>le masculin / la féminin</b> switches every word that has a feminine form: colours (vert → verte), animals (le lapin → la lapine), family (le père → la mère), un → une. Nouns with a fixed gender (le crayon, la pomme) stay as they are. <i>Chat</i> and <i>chien</i> are left in the masculine on purpose, since <i>chatte</i> and <i>chienne</i> can draw giggles at this age.</li></ul></div>" +
     "</div></details>";
 }
 
@@ -696,7 +819,9 @@ function colorie() {
 function trie() {
   const act = shell("trie", "Touche une carte. Ensuite, touche la boîte où elle va. Écoute le mot quand tu touches la carte.");
   function draw() {
-    const A = theme(); const others = THEMES.filter(t => t.id !== A.id); const B = others[Math.floor(Math.random() * others.length)];
+    const A = theme();
+    const keys = new Set(A.words.flatMap(w => [w.fr, w.e, w.color, w.num, w.day].filter(x => x !== undefined)));
+    const others = THEMES.filter(t => t.id !== A.id && !t.words.some(w => [w.fr, w.e, w.color, w.num, w.day].some(x => x !== undefined && keys.has(x)))); const B = others[Math.floor(Math.random() * others.length)];
     const cards = shuffle([...pickN(A.words, 4).map(w => ({w, t:A.id})), ...pickN(B.words, 4).map(w => ({w, t:B.id}))]);
     let selected = null, placed = 0;
     const bins = shuffle([A, B]);
@@ -832,13 +957,241 @@ function associe() {
 }
 
 /* ------------------------------------------------------------------ router */
-const VIEWS = { ecoute, lis, trouve, trace, colorie, trie, points, associe };
+
+/* --- 9. Mémoire ---------------------------------------------------------- */
+function memoire() {
+  const act = shell("memoire", "Touche deux cartes. Si c'est la même image, c'est une paire ! Écoute le mot chaque fois.");
+  function draw() {
+    const set = pickN(theme().words, 6); const cards = shuffle([...set, ...set]);
+    let open = [], found = 0, lock = false;
+    act.innerHTML =
+      '<div class="mem">' + cards.map((w, k) => '<button class="mcard" data-k="' + k + '" aria-label="Carte ' + (k + 1) + '"><span class="mback" aria-hidden="true">?</span><span class="face"><span class="p">' + pic(w) + '</span><span class="w">' + esc(FR(w)) + "</span></span></button>").join("") + "</div>" +
+      '<div class="feedback" id="fb" aria-live="polite"></div>' +
+      '<div class="bravo" id="bravo">' + praise() + ' Toutes les paires !<br><button class="btn" id="again">Encore →</button></div>';
+    const fb = $("#fb", act);
+    $$(".mcard", act).forEach(c => c.onclick = () => {
+      if (lock || c.classList.contains("up")) return;
+      const w = cards[+c.dataset.k]; c.classList.add("up"); speak(FR(w)); open.push(c);
+      if (open.length < 2) return;
+      const [a, b] = open; open = [];
+      if (cards[+a.dataset.k] === cards[+b.dataset.k]) {
+        [a, b].forEach(x => { x.classList.add("found"); x.disabled = true; flash(x, "pop"); });
+        found++; fb.className = "feedback ok"; fb.textContent = praise();
+        if (found === set.length) $("#bravo", act).classList.add("show");
+      } else {
+        lock = true; fb.className = "feedback try"; fb.textContent = "Pas une paire. Essaie encore !";
+        setTimeout(() => { a.classList.remove("up"); b.classList.remove("up"); lock = false; }, 1300);
+      }
+    });
+    $("#again", act).onclick = draw;
+  }
+  draw();
+}
+
+/* --- 10. Bâtis la phrase ------------------------------------------------- */
+const quoteIt = w => "« " + FR(w) + " »";
+const FRAMES = {
+  besoins: w => ["J'ai besoin", w.s, "."],
+  emotions: w => ["Je suis", FR(w), "."],
+  couleurs: w => ["J'aime le", w.fr, "."],
+  nombres: w => ["J'ai", FR(w), "ans."],
+  nourriture: w => ["J'aime", FR(w), "."],
+  canada: w => ["J'aime", FR(w), "."],
+  meteo: w => ["Aujourd'hui,", FR(w), "."],
+  jours: w => ["Aujourd'hui, c'est", FR(w), "."],
+  salut: w => ["Je dis :", quoteIt(w), ""],
+  routine: w => ["Je dis :", quoteIt(w), ""],
+  consignes: w => ["Jacques dit :", quoteIt(w), ""]
+};
+const frameFor = id => FRAMES[id] || (w => ["Voici", FR(w), "."]);
+function phraseText(parts) { return (parts[0] + " " + parts[1] + (parts[2] && parts[2] !== "." ? " " + parts[2] : parts[2])).replace(/\s+/g, " ").trim(); }
+function phrase() {
+  const act = shell("phrase", "Choisis une image. Elle finit la phrase. Écoute la phrase, puis dis-la à voix haute.");
+  const T = theme(); const frame = frameFor(T.id);
+  const words = T.id === "nombres" ? T.words.filter(w => w.num >= 5 && w.num <= 12) : T.words;
+  let chosen = null;
+  function draw() {
+    const parts = chosen ? frame(chosen) : frame(words[0]);
+    act.innerHTML =
+      '<div class="frame" aria-live="polite"><span>' + esc(parts[0]) + '</span><span class="slot' + (chosen ? " filled" : "") + '">' +
+        (chosen ? '<span class="p">' + pic(chosen) + "</span>" + esc(parts[1]) : "?") + "</span>" +
+        (parts[2] ? '<span' + (parts[2] === "." ? ' style="margin-left:-10px"' : "") + ">" + esc(parts[2]) + "</span>" : "") + "</div>" +
+      '<div class="btns" style="margin-bottom:12px"><button class="btn main" id="play"' + (chosen ? "" : " disabled") + '>🔊 Écoute la phrase</button></div>' +
+      '<div class="say3" style="margin-bottom:18px"' + (chosen ? "" : " hidden") + '><span class="lbl">Dis la phrase :</span>' + [1,2,3].map(n => '<button class="dot3" aria-label="Fois ' + n + '">' + n + "</button>").join("") + "</div>" +
+      '<div class="pickgrid">' + words.map((w, k) => '<button class="card" data-k="' + k + '" aria-pressed="' + (w === chosen) + '"><span class="p">' + pic(w) + '</span><span class="w">' + esc(FR(w)) + "</span></button>").join("") + "</div>";
+    $$(".pickgrid .card", act).forEach(b => b.onclick = () => { chosen = words[+b.dataset.k]; draw(); speak(phraseText(frame(chosen))); });
+    if (chosen) $("#play", act).onclick = () => speak(phraseText(frame(chosen)));
+    $$(".dot3", act).forEach(d => d.onclick = () => { d.classList.toggle("on"); flash(d, "pop"); });
+  }
+  draw();
+}
+
+/* --- 11. Jacques a dit --------------------------------------------------- */
+const SIMON = [
+  {fr:"touche ta tête", e:"🙆"}, {fr:"touche ton nez", e:"👃"}, {fr:"touche tes oreilles", e:"👂"}, {fr:"lève la main", e:"✋"},
+  {fr:"lève les bras", e:"🙌"}, {fr:"lève le pied", e:"🦶"}, {fr:"saute", e:"🦘"}, {fr:"tourne", e:"🔄"},
+  {fr:"tape des mains", e:"👏"}, {fr:"assieds-toi", e:"🪑"}, {fr:"lève-toi", e:"🧍"}, {fr:"frotte ton ventre", e:"🫃"}
+];
+function jacques() {
+  const act = shell("jacques", "Écoute l'ordre. Si tu entends « Jacques a dit », fais le geste ! Sinon, ne bouge pas. Ensuite, touche ta réponse.", false);
+  let last = -1, n = 0;
+  function draw() {
+    let k; do { k = Math.floor(Math.random() * SIMON.length); } while (k === last); last = k;
+    const c = SIMON[k], says = n < 2 ? true : Math.random() < 0.6; n++;
+    const cmd = c.fr.charAt(0).toUpperCase() + c.fr.slice(1) + " !";
+    const text = says ? "Jacques a dit : " + c.fr + " !" : cmd;
+    act.innerHTML =
+      '<div class="flash"><div class="big">' + pic(c) + "</div>" +
+      '<div class="simon"><span class="who' + (says ? "" : " gone") + '">Jacques a dit :</span><span class="word">' + esc(says ? c.fr + " !" : cmd) + "</span></div>" +
+      '<div class="btns"><button class="btn" id="play">🔊 Encore</button></div>' +
+      '<div class="btns"><button class="btn main" data-a="1">🏃 Je bouge</button><button class="btn" data-a="0">🧊 Je ne bouge pas</button></div>' +
+      '<div class="feedback" id="fb" aria-live="polite"></div><div class="btns"><button class="btn" id="next" hidden>Suivant →</button></div></div>';
+    const fb = $("#fb", act);
+    $("#play", act).onclick = () => speak(text);
+    $$("[data-a]", act).forEach(b => b.onclick = () => {
+      const ok = (b.dataset.a === "1") === says;
+      if (ok) {
+        fb.className = "feedback ok"; fb.textContent = praise() + (says ? "" : " Jacques n'a pas dit !");
+        $$("[data-a]", act).forEach(x => x.disabled = true); $("#next", act).hidden = false;
+      } else {
+        flash(b, "shake"); fb.className = "feedback try";
+        fb.textContent = says ? "Écoute : « Jacques a dit… » Tu bouges !" : "Attention ! Jacques n'a pas dit. Ne bouge pas !";
+      }
+    });
+    $("#next", act).onclick = draw;
+    if (n > 1) speak(text);
+  }
+  draw();
+}
+
+/* --- 12. Qu'est-ce qui manque ? ------------------------------------------ */
+function manque() {
+  const act = shell("manque", "Regarde les images et écoute les mots. Touche « Prêt ». Une image va partir. Laquelle ?");
+  function draw() {
+    const words = theme().words; const set = pickN(words, Math.min(4, words.length - 1));
+    const gone = set[Math.floor(Math.random() * set.length)];
+    const extras = pickN(words.filter(w => !set.includes(w)), 2);
+    const opts = shuffle([gone, ...extras]);
+    const grid = hide => '<div class="mgrid">' + set.map(w => (hide && w === gone)
+      ? '<div class="mslot empty" aria-label="Image partie">?</div>'
+      : '<div class="mslot"><span class="p">' + pic(w) + '</span><span class="w">' + esc(FR(w)) + "</span></div>").join("") + "</div>";
+    act.innerHTML = '<div class="flash" id="stage">' + grid(false) +
+      '<div class="btns"><button class="btn" id="hear">🔊 Écoute les mots</button><button class="btn main" id="ready">Prêt !</button></div></div>';
+    $("#hear", act).onclick = () => speak(set.map(FR).join(", "));
+    $("#ready", act).onclick = () => {
+      const st = $("#stage", act); st.classList.add("blink");
+      setTimeout(() => {
+        st.classList.remove("blink");
+        st.innerHTML = grid(true) + "<h2 style='font-size:1.4rem'>Qu'est-ce qui manque ?</h2>" +
+          '<div class="choices" style="max-width:560px">' + opts.map((w, k) => '<button class="choice" data-k="' + k + '" aria-label="Choix ' + (k + 1) + '">' + pic(w) + "</button>").join("") + "</div>" +
+          '<div class="feedback" id="fb" aria-live="polite"></div><div class="btns"><button class="btn" id="next" hidden>Encore un →</button></div>';
+        const fb = $("#fb", act);
+        $$(".choice", act).forEach(b => b.onclick = () => {
+          const w = opts[+b.dataset.k];
+          if (w === gone) {
+            b.classList.add("good"); flash(b, "pop"); fb.className = "feedback ok"; fb.innerHTML = praise() + " <span class='word'>" + esc(FR(w)) + "</span>";
+            speak(FR(w)); const e = $(".mslot.empty", act); e.classList.remove("empty"); e.innerHTML = '<span class="p">' + pic(w) + '</span><span class="w">' + esc(FR(w)) + "</span>";
+            $$(".choice", act).forEach(x => x.disabled = true); $("#next", act).hidden = false;
+          } else { b.classList.add("nope"); b.disabled = true; flash(b, "shake"); fb.className = "feedback try"; fb.textContent = "Ce n'est pas celle-là. Essaie encore !"; }
+        });
+        $("#next", act).onclick = draw;
+      }, 700);
+    };
+  }
+  draw();
+}
+
+/* --- 13. La lettre manquante --------------------------------------------- */
+const ALPHA = "abcdefghijklmnopqrstuvwxyz";
+const plain = ch => ch.normalize("NFD").replace(/[̀-ͯ]/g, "");
+function lettre() {
+  const act = shell("lettre", "Regarde l'image et écoute le mot. Quelle lettre manque ? Touche la bonne lettre.");
+  let order = shuffle(theme().words), i = 0;
+  function draw() {
+    const w = order[i], word = FR(w);
+    const art = (word.match(/^(le |la |les |l'|l’|un |une |des )/i) || [""])[0].length;
+    const idxs = [...word].map((ch, k) => ({ch, k})).filter(o => /\p{L}/u.test(o.ch) && o.k >= art && (art > 0 || o.k > 0));
+    const pickFrom = idxs.length ? idxs : [...word].map((ch, k) => ({ch, k})).filter(o => /\p{L}/u.test(o.ch));
+    const hole = pickFrom[Math.floor(Math.random() * pickFrom.length)];
+    const right = hole.ch.toLowerCase();
+    const pool = ALPHA.split("").filter(c => c !== plain(right));
+    const opts = shuffle([right, ...pickN(pool, 2)]);
+    const shown = [...word].map((ch, k) => k === hole.k ? '<span class="gap" id="gap">_</span>' : esc(ch)).join("");
+    act.innerHTML =
+      '<div class="flash"><div class="big">' + pic(w) + '</div><div class="word spell">' + shown + "</div>" +
+      '<div class="btns"><button class="btn" id="play">🔊 Écoute</button></div>' +
+      '<div class="letters">' + opts.map(c => '<button class="lt" data-c="' + c + '">' + c + "</button>").join("") + "</div>" +
+      '<div class="feedback" id="fb" aria-live="polite"></div><div class="btns"><span class="counter" style="align-self:center">' + (i + 1) + " / " + order.length + '</span><button class="btn" id="next">Mot suivant →</button></div></div>';
+    const fb = $("#fb", act);
+    $("#play", act).onclick = () => speak(word);
+    $$(".lt", act).forEach(b => b.onclick = () => {
+      if (b.dataset.c === right) {
+        const g = $("#gap", act); g.textContent = hole.ch; g.classList.add("filled"); flash(g, "pop");
+        b.classList.add("good"); $$(".lt", act).forEach(x => x.disabled = true);
+        fb.className = "feedback ok"; fb.textContent = praise(); speak(word);
+      } else { b.disabled = true; b.classList.add("nope"); flash(b, "shake"); fb.className = "feedback try"; fb.textContent = "Essaie une autre lettre !"; }
+    });
+    $("#next", act).onclick = () => { i++; if (i >= order.length) { order = shuffle(order); i = 0; } draw(); };
+  }
+  draw();
+}
+
+/* --- 14. Enregistre-toi --------------------------------------------------- */
+let REC = {stream: null, url: null};
+function stopMic() { try { if (REC.stream) REC.stream.getTracks().forEach(t => t.stop()); } catch (e) {} REC.stream = null; }
+function enregistre() {
+  const act = shell("enregistre", "Écoute le mot. Touche le micro et dis le mot. Ensuite, écoute ta voix. Ta voix reste sur cet appareil.");
+  const words = theme().words; let i = 0, rec = null, chunks = [], stopT = null;
+  const canRec = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  function draw() {
+    const w = words[i];
+    if (REC.url) { try { URL.revokeObjectURL(REC.url); } catch (e) {} REC.url = null; }
+    act.innerHTML =
+      '<div class="flash"><div class="big">' + pic(w) + '</div><div class="word">' + esc(FR(w)) + "</div>" +
+      '<div class="recrow"><button class="btn" id="model">🔊 Le modèle</button>' +
+      '<button class="btn main mic" id="mic" aria-pressed="false">🎙️ Enregistre</button>' +
+      '<button class="btn" id="mine" disabled>▶️ Ma voix</button></div>' +
+      '<div class="feedback" id="fb" aria-live="polite"></div>' +
+      '<div class="btns"><button class="btn" id="prev">← Avant</button><span class="counter" style="align-self:center">' + (i + 1) + " / " + words.length + '</span><button class="btn" id="next">Après →</button></div></div>';
+    const fb = $("#fb", act), mic = $("#mic", act), mine = $("#mine", act);
+    $("#model", act).onclick = () => speak(FR(w));
+    mine.onclick = () => { if (REC.url) { try { new Audio(REC.url).play(); } catch (e) {} } };
+    if (!canRec) { mic.disabled = true; fb.className = "feedback try"; fb.textContent = "Le micro n'est pas disponible ici."; }
+    mic.onclick = async () => {
+      if (rec && rec.state === "recording") { rec.stop(); return; }
+      try {
+        if (!REC.stream) REC.stream = await navigator.mediaDevices.getUserMedia({audio: true});
+        chunks = []; rec = new MediaRecorder(REC.stream);
+        rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+        rec.onstop = () => {
+          clearTimeout(stopT); mic.classList.remove("live"); mic.setAttribute("aria-pressed", "false"); mic.textContent = "🎙️ Encore";
+          if (REC.url) { try { URL.revokeObjectURL(REC.url); } catch (e) {} }
+          REC.url = URL.createObjectURL(new Blob(chunks, {type: rec.mimeType || "audio/webm"}));
+          mine.disabled = false; fb.className = "feedback ok"; fb.textContent = "Écoute ta voix, puis le modèle.";
+          try { new Audio(REC.url).play(); } catch (e) {}
+        };
+        rec.start(); mic.classList.add("live"); mic.setAttribute("aria-pressed", "true"); mic.textContent = "⏹️ Arrête";
+        fb.className = "feedback"; fb.textContent = "Je t'écoute…";
+        stopT = setTimeout(() => { if (rec && rec.state === "recording") rec.stop(); }, 6000);
+      } catch (e) {
+        mic.disabled = true; fb.className = "feedback try"; fb.textContent = "Le micro n'est pas disponible ici.";
+      }
+    };
+    $("#prev", act).onclick = () => { i = (i - 1 + words.length) % words.length; draw(); speak(FR(words[i])); };
+    $("#next", act).onclick = () => { i = (i + 1) % words.length; draw(); speak(FR(words[i])); };
+  }
+  draw();
+}
+
+const VIEWS = { ecoute, lis, trouve, trace, colorie, trie, points, associe, memoire, phrase, jacques, manque, lettre, enregistre };
 function route(keep) {
   const id = (location.hash || "").slice(1);
   if (!keep) { IDX.ecoute = 0; IDX.trace = 0; }
+  if (id !== "enregistre") stopMic();
   if (hasSpeech) try { speechSynthesis.cancel(); } catch (e) {}
   (VIEWS[id] || home)();
-  if (!keep) window.scrollTo(0, 0);
+  if (id === "videos") { const v = $("#videos-sec"); if (v) v.scrollIntoView({block: "start"}); }
+  else if (!keep) window.scrollTo(0, 0);
 }
 window.addEventListener("hashchange", () => route());
 renderThemes(); applySettings(); route();
