@@ -105,6 +105,10 @@ details.teacher p, details.teacher li { color: var(--muted); font-size: .92rem; 
 .act-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 16px; }
 .back { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 14px; font-weight: 700; text-decoration: none; color: var(--ink); }
 .act-head h1 { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 800; }
+.gseg { display: inline-flex; border: 2px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--card); }
+.gseg button { border: 0; background: transparent; padding: 7px 14px; font-weight: 700; min-height: 40px; }
+.gseg button b { font-family: var(--font-display); font-size: 1.1em; margin-right: 4px; }
+.gseg button[aria-pressed="true"] { background: var(--teal); color: var(--card); }
 .act-head .how { flex-basis: 100%; margin: 0; color: var(--muted); }
 .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: clamp(14px, 3vw, 28px); }
 
@@ -272,6 +276,8 @@ const COLORS = {
   rouge: "#E63946", bleu: "#3A86FF", jaune: "#FFD23F", vert: "#2DC653", orange: "#FB8500",
   violet: "#8338EC", rose: "#FF8FC7", noir: "#22223B", blanc: "#FFFFFF", brun: "#8B5A2B", gris: "#9AA5B1"
 };
+// feminine forms of the colour adjectives (rouge, jaune, orange, rose don't change)
+const FEM_COL = {bleu:"bleue", vert:"verte", violet:"violette", noir:"noire", blanc:"blanche", brun:"brune", gris:"grise"};
 const DAYS = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"];
 
 const THEMES = [
@@ -279,19 +285,21 @@ const THEMES = [
     {fr:"bonjour", e:"🙋"}, {fr:"salut", e:"👋"}, {fr:"au revoir", e:"🚶"}, {fr:"merci", e:"🙏"},
     {fr:"oui", e:"👍"}, {fr:"non", e:"👎"}, {fr:"ça va bien", e:"😀"}, {fr:"ça va mal", e:"😞"},
     {fr:"comme ci, comme ça", e:"😐"}, {fr:"bonne nuit", e:"🌙"} ] },
-  { id: "couleurs", name: "Les couleurs", words: Object.keys(COLORS).map(k => ({fr:k, color:COLORS[k]})) },
-  { id: "nombres", name: "Les nombres", words: NUMS.map((w, i) => ({fr:w, num:i})) },
+  { id: "couleurs", name: "Les couleurs", words: Object.keys(COLORS).map(k => ({fr:k, f:FEM_COL[k], color:COLORS[k]})) },
+  { id: "nombres", name: "Les nombres", words: NUMS.map((w, i) => (i === 1 ? {fr:w, f:"une", num:i} : {fr:w, num:i})) },
   { id: "classe", name: "La salle de classe", words: [
     {fr:"le crayon", e:"✏️"}, {fr:"le stylo", e:"🖊️"}, {fr:"le livre", e:"📕"}, {fr:"le cahier", e:"📓"},
     {fr:"la règle", e:"📏"}, {fr:"les ciseaux", e:"✂️"}, {fr:"le sac à dos", e:"🎒"}, {fr:"la chaise", e:"🪑"},
     {fr:"l'ordinateur", e:"💻"}, {fr:"l'horloge", e:"🕒"} ] },
   { id: "animaux", name: "Les animaux", words: [
     {fr:"le chat", e:"🐱"}, {fr:"le chien", e:"🐶"}, {fr:"l'oiseau", e:"🐦"}, {fr:"le poisson", e:"🐟"},
-    {fr:"le lapin", e:"🐰"}, {fr:"la vache", e:"🐮"}, {fr:"le cheval", e:"🐴"}, {fr:"le cochon", e:"🐷"},
-    {fr:"l'ours", e:"🐻"}, {fr:"le castor", e:"🦫"}, {fr:"la souris", e:"🐭"}, {fr:"la grenouille", e:"🐸"} ] },
+    {fr:"le lapin", f:"la lapine", e:"🐰"}, {fr:"le taureau", f:"la vache", e:"🐂", ef:"🐮"}, {fr:"le cheval", f:"la jument", e:"🐴"}, {fr:"le cochon", f:"la truie", e:"🐷"},
+    {fr:"l'ours", f:"l'ourse", e:"🐻"}, {fr:"le castor", e:"🦫"}, {fr:"la souris", e:"🐭"}, {fr:"la grenouille", e:"🐸"} ] },
   { id: "famille", name: "La famille", words: [
-    {fr:"la mère", e:"👩"}, {fr:"le père", e:"👨"}, {fr:"la sœur", e:"👧"}, {fr:"le frère", e:"👦"},
-    {fr:"le bébé", e:"👶"}, {fr:"la grand-mère", e:"👵"}, {fr:"le grand-père", e:"👴"} ] },
+    {fr:"le père", f:"la mère", e:"👨", ef:"👩"}, {fr:"le frère", f:"la sœur", e:"👦", ef:"👧"},
+    {fr:"le grand-père", f:"la grand-mère", e:"👴", ef:"👵"}, {fr:"l'oncle", f:"la tante", e:"🧔", ef:"👩‍🦰"},
+    {fr:"le cousin", f:"la cousine", e:"🧒", ef:"👱‍♀️"},
+    {fr:"le bébé", e:"👶"} ] },
   { id: "nourriture", name: "La nourriture", words: [
     {fr:"la pomme", e:"🍎"}, {fr:"la banane", e:"🍌"}, {fr:"le pain", e:"🍞"}, {fr:"le fromage", e:"🧀"},
     {fr:"le lait", e:"🥛"}, {fr:"la pizza", e:"🍕"}, {fr:"la carotte", e:"🥕"}, {fr:"le gâteau", e:"🎂"},
@@ -318,8 +326,10 @@ const S = {
   theme: store.get("theme", "animaux"),
   big: store.get("big", false),
   slow: store.get("slow", false),
-  calm: store.get("calm", false)
+  calm: store.get("calm", false),
+  gender: store.get("gender", "m")
 };
+const IDX = {};
 if (!THEMES.find(t => t.id === S.theme)) S.theme = "animaux";
 const theme = () => THEMES.find(t => t.id === S.theme);
 
@@ -327,6 +337,9 @@ const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const pickN = (a, n) => shuffle(a).slice(0, Math.min(n, a.length));
+const FR = w => (S.gender === "f" && w.f) ? w.f : w["fr"];
+const colName = c => (S.gender === "f" && FEM_COL[c]) ? FEM_COL[c] : c;
+const hasGender = t => t.words.some(w => w.f);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const flash = (el, cls) => { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
 
@@ -372,7 +385,7 @@ function pic(w) {
   if (w.color) return '<span class="swatch" style="--sw:' + w.color + '" aria-hidden="true"></span>';
   if (w.num !== undefined) return '<span class="numeral" aria-hidden="true">' + w.num + "</span>";
   if (w.day !== undefined) return weekStrip(w.day);
-  return '<span class="emoji" aria-hidden="true">' + w.e + "</span>";
+  return '<span class="emoji" aria-hidden="true">' + ((S.gender === "f" && w.ef) ? w.ef : w.e) + "</span>";
 }
 
 /* ------------------------------------------------------------------ icons for tiles */
@@ -425,14 +438,24 @@ $("#optTest").addEventListener("click", () => speak("Bonjour ! Je m'appelle la v
 
 /* ------------------------------------------------------------------ views */
 const view = $("#view");
-function shell(id, how, themed = true) {
+function genderSeg() {
+  return '<div class="gseg" role="group" aria-label="Masculin ou féminin">' +
+    '<button data-g="m" aria-pressed="' + (S.gender === "m") + '"><b>le</b> masculin</button>' +
+    '<button data-g="f" aria-pressed="' + (S.gender === "f") + '"><b>la</b> féminin</button></div>';
+}
+function shell(id, how, themed = true, gendered = themed && hasGender(theme())) {
   const a = ACTS.find(x => x.id === id);
   view.innerHTML =
     '<div class="act-head"><a class="back" href="#"><span aria-hidden="true">←</span> Activités</a>' +
     "<h1>" + a.t + "</h1>" +
     (themed ? '<span class="chip" aria-hidden="true" style="pointer-events:none"><span class="mini">' + pic(theme().words[S.theme === "nombres" ? 5 : 0]) + "</span>" + esc(theme().name) + "</span>" : "") +
+    (gendered ? genderSeg() : "") +
     '<p class="how">' + how + "</p></div>" +
     '<section class="panel" id="act"></section>';
+  $$(".gseg button", view).forEach(b => b.onclick = () => {
+    if (S.gender === b.dataset.g) return;
+    S.gender = b.dataset.g; store.set("gender", S.gender); route(true);
+  });
   return $("#act");
 }
 
@@ -448,31 +471,30 @@ function home() {
       "<div><h4>Who it's for</h4><p>Beginner Grade 4–5 Core French learners who need extra repetition, picture support, audio, and low-pressure practice. There are no timers, scores or lives. Wrong answers get a gentle hint and another try.</p></div>" +
       "<div><h4>Themes</h4><p>" + THEMES.map(t => esc(t.name)).join(" · ") + ". These are common beginner Core French topics. Check them against your own long-range plans; this site doesn't claim to cover specific curriculum expectations.</p></div>" +
       "<div><h4>Audio</h4><p>Words are read by the device's French voice (Canadian French when available). It works best in Chrome or Edge. If you hear English, add a French voice in the computer's language settings. <b>Réglages → Voix lente</b> slows it down.</p></div>" +
-      "<div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li></ul></div>" +
+      "<div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li><li><b>le masculin / la féminin</b> switches every word that has a feminine form: colours (vert → verte), animals (le lapin → la lapine), family (le père → la mère), un → une. Nouns with a fixed gender (le crayon, la pomme) stay as they are. <i>Chat</i> and <i>chien</i> are left in the masculine on purpose, since <i>chatte</i> and <i>chienne</i> can draw giggles at this age.</li></ul></div>" +
     "</div></details>";
 }
 
 /* --- 1. Écoute et répète ------------------------------------------------ */
 function ecoute() {
   const act = shell("ecoute", "Touche le haut-parleur. Écoute. Dis le mot à voix haute et touche un rond chaque fois.");
-  const words = theme().words; let i = 0;
+  const words = theme().words; let i = Math.min(IDX.ecoute || 0, words.length - 1);
   function draw(auto) {
-    const w = words[i];
+    const w = words[i]; IDX.ecoute = i;
     act.innerHTML =
-      '<div class="flash"><div class="big">' + pic(w) + '</div><div class="word">' + esc(w.fr) + "</div>" +
-      '<div class="btns"><button class="btn main" id="play">🔊 Écoute</button><button class="btn" id="slow">🐢 Lentement</button></div>' +
+      '<div class="flash"><div class="big">' + pic(w) + '</div><div class="word">' + esc(FR(w)) + "</div>" +
+      '<div class="btns"><button class="btn main" id="play">🔊 Écoute</button></div>' +
       '<div class="say3"><span class="lbl">Dis-le 3 fois :</span>' + [1,2,3].map(n => '<button class="dot3" aria-label="Fois ' + n + '">' + n + "</button>").join("") + "</div>" +
       '<div class="btns"><button class="btn" id="prev">← Avant</button><span class="counter" style="align-self:center">' + (i + 1) + " / " + words.length + '</span><button class="btn" id="next">Après →</button></div>' +
       '<div class="feedback ok" id="fb"></div></div>';
-    $("#play", act).onclick = () => speak(w.fr);
-    $("#slow", act).onclick = () => speak(w.fr, true);
+    $("#play", act).onclick = () => speak(FR(w));
     $$(".dot3", act).forEach(d => d.onclick = () => {
       d.classList.toggle("on"); flash(d, "pop");
       if ($$(".dot3.on", act).length === 3) { $("#fb", act).textContent = praise(); }
     });
     $("#prev", act).onclick = () => { i = (i - 1 + words.length) % words.length; draw(true); };
     $("#next", act).onclick = () => { i = (i + 1) % words.length; draw(true); };
-    if (auto) speak(w.fr);
+    if (auto) speak(FR(w));
   }
   draw(false);
 }
@@ -484,11 +506,11 @@ function lis() {
   function draw() {
     const w = order[i];
     act.innerHTML =
-      '<div class="flash"><div class="word">' + esc(w.fr) + '</div><div class="big reveal" id="rv" aria-live="polite"></div>' +
+      '<div class="flash"><div class="word">' + esc(FR(w)) + '</div><div class="big reveal" id="rv" aria-live="polite"></div>' +
       '<div class="btns"><button class="btn main" id="chk">✔ Vérifie</button><button class="btn" id="again" hidden>🔊 Encore</button></div>' +
       '<div class="btns"><span class="counter" style="align-self:center">' + (i + 1) + " / " + order.length + '</span><button class="btn" id="next">Mot suivant →</button></div></div>';
-    $("#chk", act).onclick = () => { $("#rv", act).innerHTML = pic(w); speak(w.fr); $("#chk", act).hidden = true; $("#again", act).hidden = false; };
-    $("#again", act).onclick = () => speak(w.fr);
+    $("#chk", act).onclick = () => { $("#rv", act).innerHTML = pic(w); speak(FR(w)); $("#chk", act).hidden = true; $("#again", act).hidden = false; };
+    $("#again", act).onclick = () => speak(FR(w));
     $("#next", act).onclick = () => { i++; if (i >= order.length) { order = shuffle(order); i = 0; } draw(); };
   }
   draw();
@@ -501,23 +523,22 @@ function trouve() {
   function draw() {
     const opts = pickN(words, Math.min(4, words.length)); const target = opts[Math.floor(Math.random() * opts.length)];
     act.innerHTML =
-      '<div class="flash"><div class="btns"><button class="btn main" id="play">🔊 Écoute</button><button class="btn" id="slow">🐢 Lentement</button></div>' +
+      '<div class="flash"><div class="btns"><button class="btn main" id="play">🔊 Écoute</button></div>' +
       '<div class="choices">' + opts.map((w, k) => '<button class="choice" data-k="' + k + '" aria-label="Image ' + (k + 1) + '">' + pic(w) + "</button>").join("") + "</div>" +
       '<div class="feedback" id="fb" aria-live="polite"></div><div class="btns"><button class="btn" id="next" hidden>Encore un →</button></div></div>';
     const fb = $("#fb", act);
-    $("#play", act).onclick = () => speak(target.fr);
-    $("#slow", act).onclick = () => speak(target.fr, true);
+    $("#play", act).onclick = () => speak(FR(target));
     $$(".choice", act).forEach(b => b.onclick = () => {
       const w = opts[+b.dataset.k];
       if (w === target) {
-        b.classList.add("good"); flash(b, "pop"); fb.className = "feedback ok"; fb.innerHTML = praise() + " <span class='word'>" + esc(w.fr) + "</span>";
-        speak(w.fr); $$(".choice", act).forEach(x => x.disabled = true); $("#next", act).hidden = false;
+        b.classList.add("good"); flash(b, "pop"); fb.className = "feedback ok"; fb.innerHTML = praise() + " <span class='word'>" + esc(FR(w)) + "</span>";
+        speak(FR(w)); $$(".choice", act).forEach(x => x.disabled = true); $("#next", act).hidden = false;
       } else {
-        b.classList.add("nope"); flash(b, "shake"); b.disabled = true; fb.className = "feedback try"; fb.textContent = "Essaie encore !"; setTimeout(() => speak(target.fr), 400);
+        b.classList.add("nope"); flash(b, "shake"); b.disabled = true; fb.className = "feedback try"; fb.textContent = "Essaie encore !"; setTimeout(() => speak(FR(target)), 400);
       }
     });
     $("#next", act).onclick = () => { round++; draw(); };
-    if (round > 0) speak(target.fr);
+    if (round > 0) speak(FR(target));
   }
   draw();
 }
@@ -525,7 +546,7 @@ function trouve() {
 /* --- 4. Trace le mot ---------------------------------------------------- */
 function trace() {
   const act = shell("trace", "Suis les lettres grises avec ton doigt ou la souris. Dis le mot pendant que tu écris.");
-  const words = theme().words; let i = 0; let strokes = []; let cur = null;
+  const words = theme().words; let i = Math.min(IDX.trace || 0, words.length - 1); let strokes = []; let cur = null;
   act.innerHTML =
     '<div class="trace-top"><span class="pic" id="tpic"></span><span class="word" id="tword" style="font-size:2rem"></span><button class="btn" id="play">🔊 Écoute</button></div>' +
     '<div class="canvas-wrap" id="cw"><canvas id="trace" aria-label="Zone pour tracer le mot"></canvas></div>' +
@@ -538,7 +559,7 @@ function trace() {
     ctx.setTransform(r, 0, 0, r, 0, 0); redraw();
   }
   function guide() {
-    const w = wrap.clientWidth, h = cv.height / (window.devicePixelRatio || 1), text = words[i].fr;
+    const w = wrap.clientWidth, h = cv.height / (window.devicePixelRatio || 1), text = FR(words[i]);
     let fs = h * 0.62; ctx.font = "700 " + fs + "px Andika, sans-serif";
     const tw = ctx.measureText(text).width; if (tw > w * 0.9) fs *= (w * 0.9) / tw;
     ctx.font = "700 " + fs + "px Andika, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
@@ -558,11 +579,11 @@ function trace() {
   const end = () => { cur = null; };
   cv.addEventListener("pointerup", end); cv.addEventListener("pointercancel", end);
   function show(auto) {
-    const w = words[i]; strokes = [];
-    $("#tpic", act).innerHTML = pic(w); $("#tword", act).textContent = w.fr; $("#cnt", act).textContent = (i + 1) + " / " + words.length;
-    redraw(); if (auto) speak(w.fr);
+    const w = words[i]; strokes = []; IDX.trace = i;
+    $("#tpic", act).innerHTML = pic(w); $("#tword", act).textContent = FR(w); $("#cnt", act).textContent = (i + 1) + " / " + words.length;
+    redraw(); if (auto) speak(FR(w));
   }
-  $("#play", act).onclick = () => speak(words[i].fr);
+  $("#play", act).onclick = () => speak(FR(words[i]));
   $("#clear", act).onclick = () => { strokes = []; redraw(); };
   $("#prev", act).onclick = () => { i = (i - 1 + words.length) % words.length; show(true); };
   $("#next", act).onclick = () => { i = (i + 1) % words.length; show(true); };
@@ -626,7 +647,7 @@ const PICS = [
   ]}
 ];
 function colorie() {
-  const act = shell("colorie", "Choisis une couleur, puis touche une partie du dessin avec ce numéro. Regarde la liste : chaque numéro a une couleur.", false);
+  const act = shell("colorie", "Choisis une couleur, puis touche une partie du dessin avec ce numéro. Regarde la liste : chaque numéro a une couleur.", false, true);
   let pi = 0, sel = null, names = true;
   function draw() {
     const P = PICS[pi]; sel = null;
@@ -637,8 +658,8 @@ function colorie() {
         P.regions.map((r, k) => r.s.replace(/^<(\w+)/, '<$1 class="reg" data-k="' + k + '" fill="#FFFFFF" stroke="#1D2A3A" stroke-width="2.5"')).join("") +
         P.regions.map((r, k) => '<text class="lab" data-k="' + k + '" x="' + r.l[0] + '" y="' + r.l[1] + '" text-anchor="middle">' + r.n + "</text>").join("") +
       "</svg></div>" +
-      '<div class="side"><div class="legend" id="leg">' + Object.keys(P.legend).map(n => '<div data-n="' + n + '"><span class="n">' + n + "</span>" + NUMS[n] + ' → <b class="word">' + P.legend[n] + "</b></div>").join("") + "</div>" +
-      '<div class="palette' + (names ? "" : " pal-names-off") + '" id="pal">' + used.map(c => '<button class="pal" data-c="' + c + '" aria-pressed="false" aria-label="' + c + '"><span class="swatch" style="--sw:' + COLORS[c] + '"></span><span class="nm">' + c + "</span></button>").join("") + "</div>" +
+      '<div class="side"><div class="legend" id="leg">' + Object.keys(P.legend).map(n => '<div data-n="' + n + '"><span class="n">' + n + "</span>" + NUMS[n] + ' → <b class="word">' + colName(P.legend[n]) + "</b></div>").join("") + "</div>" +
+      '<div class="palette' + (names ? "" : " pal-names-off") + '" id="pal">' + used.map(c => '<button class="pal" data-c="' + c + '" aria-pressed="false" aria-label="' + colName(c) + '"><span class="swatch" style="--sw:' + COLORS[c] + '"></span><span class="nm">' + colName(c) + "</span></button>").join("") + "</div>" +
       '<button class="iconbtn" id="names" aria-pressed="' + names + '">Noms des couleurs</button>' +
       '<div class="feedback" id="fb" aria-live="polite"></div></div></div>' +
       '<div class="bravo" id="bravo">Bravo ! C\'est ' + esc(P.name) + ' !<br><button class="btn" id="again">Un autre dessin →</button></div>';
@@ -647,7 +668,7 @@ function colorie() {
     $$(".picker .iconbtn", act).forEach(b => b.onclick = () => { pi = +b.dataset.p; draw(); });
     $("#names", act).onclick = () => { names = !names; $("#pal", act).classList.toggle("pal-names-off", !names); $("#names", act).setAttribute("aria-pressed", names); };
     $$(".pal", act).forEach(b => b.onclick = () => {
-      sel = b.dataset.c; $$(".pal", act).forEach(x => x.setAttribute("aria-pressed", x === b)); speak(sel); fb.textContent = "";
+      sel = b.dataset.c; $$(".pal", act).forEach(x => x.setAttribute("aria-pressed", x === b)); speak(colName(sel)); fb.textContent = "";
     });
     $$(".reg", act).forEach(el => el.addEventListener("click", () => {
       const k = +el.dataset.k, r = P.regions[k], want = P.legend[r.n];
@@ -656,13 +677,13 @@ function colorie() {
       if (sel === want) {
         el.setAttribute("fill", COLORS[want]); done.add(k);
         const lab = $('.lab[data-k="' + k + '"]', act); if (lab) lab.style.opacity = ".25";
-        fb.className = "feedback ok"; fb.textContent = praise(); speak(NUMS[r.n] + ", " + want);
+        fb.className = "feedback ok"; fb.textContent = praise(); speak(NUMS[r.n] + ", " + colName(want));
         const left = P.regions.filter((x, j) => x.n === r.n && !done.has(j)).length;
         if (!left) $('#leg [data-n="' + r.n + '"]', act).classList.add("done");
         if (done.size === P.regions.length) { $("#bravo", act).classList.add("show"); speak("Bravo ! C'est " + P.name + " !"); }
       } else {
-        fb.className = "feedback try"; fb.textContent = "Numéro " + NUMS[r.n] + " : " + want;
-        speak("Numéro " + NUMS[r.n] + " : " + want);
+        fb.className = "feedback try"; fb.textContent = "Numéro " + NUMS[r.n] + " : " + colName(want);
+        speak("Numéro " + NUMS[r.n] + " : " + colName(want));
         flash($('.pal[data-c="' + want + '"]', act), "hint");
       }
     }));
@@ -680,14 +701,14 @@ function trie() {
     let selected = null, placed = 0;
     const bins = shuffle([A, B]);
     act.innerHTML =
-      '<div class="pool" id="pool">' + cards.map((c, k) => '<button class="card" data-k="' + k + '" aria-pressed="false"><span class="p">' + pic(c.w) + '</span><span class="w">' + esc(c.w.fr) + "</span></button>").join("") + "</div>" +
+      '<div class="pool" id="pool">' + cards.map((c, k) => '<button class="card" data-k="' + k + '" aria-pressed="false"><span class="p">' + pic(c.w) + '</span><span class="w">' + esc(FR(c.w)) + "</span></button>").join("") + "</div>" +
       '<div class="bins">' + bins.map(t => '<button class="bin" data-t="' + t.id + '"><h3><span class="p">' + pic(t.words[t.id === "nombres" ? 5 : 0]) + "</span>" + esc(t.name) + '</h3><span class="in"></span></button>').join("") + "</div>" +
       '<div class="feedback" id="fb" aria-live="polite"></div>' +
       '<div class="bravo" id="bravo">' + praise() + ' Tout est trié !<br><button class="btn" id="again">Nouveau mélange →</button></div>';
     const fb = $("#fb", act);
     $$(".card", act).forEach(b => b.onclick = () => {
       selected = +b.dataset.k; $$("#pool .card", act).forEach(x => x.setAttribute("aria-pressed", x === b));
-      $$(".bin", act).forEach(x => x.classList.add("ready")); speak(cards[selected].w.fr);
+      $$(".bin", act).forEach(x => x.classList.add("ready")); speak(FR(cards[selected].w));
     });
     $$(".bin", act).forEach(bin => bin.onclick = () => {
       if (selected === null) { fb.className = "feedback try"; fb.textContent = "Touche une carte d'abord."; return; }
@@ -781,7 +802,7 @@ function associe() {
     let pickL = null, pickR = null, pairs = 0;
     act.innerHTML =
       '<div class="match"><div class="col">' + L.map((w, k) => '<button class="mitem pic" data-side="L" data-k="' + k + '" aria-pressed="false" aria-label="Image ' + (k + 1) + '">' + pic(w) + "</button>").join("") + "</div>" +
-      '<div class="col">' + R.map((w, k) => '<button class="mitem wd" data-side="R" data-k="' + k + '" aria-pressed="false">' + esc(w.fr) + "</button>").join("") + "</div></div>" +
+      '<div class="col">' + R.map((w, k) => '<button class="mitem wd" data-side="R" data-k="' + k + '" aria-pressed="false">' + esc(FR(w)) + "</button>").join("") + "</div></div>" +
       '<div class="feedback" id="fb" aria-live="polite"></div>' +
       '<div class="bravo" id="bravo">' + praise() + ' Toutes les paires !<br><button class="btn" id="again">Encore →</button></div>';
     const fb = $("#fb", act);
@@ -791,7 +812,7 @@ function associe() {
       if (L[pickL] === R[pickR]) {
         const col = PAIR_COLORS[pairs % PAIR_COLORS.length];
         [a, b].forEach(x => { x.classList.add("paired"); x.style.setProperty("--pc", col); x.setAttribute("aria-pressed", "false"); x.disabled = true; flash(x, "pop"); });
-        pairs++; fb.className = "feedback ok"; fb.textContent = praise(); speak(L[pickL].fr);
+        pairs++; fb.className = "feedback ok"; fb.textContent = praise(); speak(FR(L[pickL]));
         if (pairs === set.length) $("#bravo", act).classList.add("show");
       } else {
         [a, b].forEach(x => { flash(x, "shake"); x.setAttribute("aria-pressed", "false"); });
@@ -802,7 +823,7 @@ function associe() {
     $$(".mitem", act).forEach(m => m.onclick = () => {
       const side = m.dataset.side, k = +m.dataset.k;
       $$('[data-side="' + side + '"]', act).forEach(x => { if (!x.disabled) x.setAttribute("aria-pressed", x === m); });
-      if (side === "L") pickL = k; else { pickR = k; speak(R[k].fr); }
+      if (side === "L") pickL = k; else { pickR = k; speak(FR(R[k])); }
       check();
     });
     $("#again", act).onclick = draw;
@@ -812,13 +833,14 @@ function associe() {
 
 /* ------------------------------------------------------------------ router */
 const VIEWS = { ecoute, lis, trouve, trace, colorie, trie, points, associe };
-function route() {
+function route(keep) {
   const id = (location.hash || "").slice(1);
+  if (!keep) { IDX.ecoute = 0; IDX.trace = 0; }
   if (hasSpeech) try { speechSynthesis.cancel(); } catch (e) {}
   (VIEWS[id] || home)();
-  window.scrollTo(0, 0);
+  if (!keep) window.scrollTo(0, 0);
 }
-window.addEventListener("hashchange", route);
+window.addEventListener("hashchange", () => route());
 renderThemes(); applySettings(); route();
 })();
 </script>
