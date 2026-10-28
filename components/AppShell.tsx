@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import ActivityView from "./ActivityView";
+import AppSidebar from "./AppSidebar";
 import Header from "./Header";
 import { THEMES } from "./activities/data";
 import type { Gender } from "./activities/shared";
 import type { Theme } from "./activities/data";
 import voiceAssets from "@/lib/voice-assets.json";
+import { SidebarInset, SidebarProvider } from "./ui/sidebar";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const VOICE_SAMPLE = "Bonjour ! Je m'appelle la voix française.";
@@ -119,22 +121,22 @@ export default function AppShell() {
   };
 
   return (
-    <>
-      <Header
-        theme={theme}
-        themes={THEMES}
-        big={big}
-        slow={slow}
-        calm={calm}
-        voiceNote={speechError || "Voix française intégrée prête · sans API ni voix système."}
-        onThemeChange={changeTheme}
-        onBigChange={() => updateSetting("big", !big, setBig)}
-        onSlowChange={() => updateSetting("slow", !slow, setSlow)}
-        onCalmChange={() => updateSetting("calm", !calm, setCalm)}
-      />
-      {speechError && <p className="voice-notice" role="status" aria-live="polite">{speechError}</p>}
-      <ActivityView activityId={activityId} theme={theme} gender={gender} slow={slow} onGenderChange={changeGender} />
-    </>
+    <SidebarProvider defaultOpen>
+      <AppSidebar activityId={activityId} theme={theme} themes={THEMES} gender={gender} onThemeChange={changeTheme} />
+      <SidebarInset>
+        <Header
+          big={big}
+          slow={slow}
+          calm={calm}
+          voiceNote={speechError || "Voix française intégrée prête · sans API ni voix système."}
+          onBigChange={() => updateSetting("big", !big, setBig)}
+          onSlowChange={() => updateSetting("slow", !slow, setSlow)}
+          onCalmChange={() => updateSetting("calm", !calm, setCalm)}
+        />
+        {speechError && <p className="voice-notice" role="status" aria-live="polite">{speechError}</p>}
+        <ActivityView activityId={activityId} theme={theme} gender={gender} slow={slow} onGenderChange={changeGender} />
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
 

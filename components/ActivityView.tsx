@@ -86,7 +86,7 @@ function Home({ theme }: { theme: Theme }) {
       </section>
       <details className="teacher"><summary>For teachers and families</summary><div className="cols">
         <div><h4>Who it&apos;s for</h4><p>Beginner Grade 4–5 Core French learners who need extra repetition, picture support, audio, and low-pressure practice. There are no timers, scores or lives. Wrong answers get a gentle hint and another try.</p></div>
-        <div><h4>Audio</h4><p>Words are read by the device&apos;s French voice (Canadian French when available). It works best in Chrome or Edge. If you hear English, add a French voice in the computer&apos;s language settings. <b>Réglages → Voix lente</b> slows it down.</p></div>
+        <div><h4>Audio</h4><p>French audio clips are bundled with the app and work without a speech service or a voice installed on the device. <b>Réglages → Voix lente</b> slows them down.</p></div>
         <div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li><li><b>Enregistre-toi</b> needs microphone permission. Recordings stay in the browser and are deleted when the student leaves the activity.</li></ul></div>
       </div></details>
     </>
@@ -95,7 +95,7 @@ function Home({ theme }: { theme: Theme }) {
 
 export default function ActivityView({ activityId, theme, gender, slow, onGenderChange }: Props) {
   if (!activityId || activityId === "videos" || !ACTIVITY_NAMES[activityId]) {
-    return <main className="wrap" id="view"><Home theme={theme} /></main>;
+    return <div className="wrap activity-main" id="view"><Home theme={theme} /></div>;
   }
 
   const props = { theme, gender, slow };
@@ -118,7 +118,7 @@ export default function ActivityView({ activityId, theme, gender, slow, onGender
     default: activity = <Home theme={theme} />;
   }
 
-  return <main className="wrap" id="view">
+  return <div className="wrap activity-main" id="view">
     <ActivityFrame key={`${activityId}-${theme.id}-${gender}`} id={activityId} theme={theme} gender={gender} onGenderChange={onGenderChange}>{activity}</ActivityFrame>
-  </main>;
+  </div>;
 }

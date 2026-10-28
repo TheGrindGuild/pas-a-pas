@@ -31,7 +31,7 @@ jobs:
           python-version: "3.12"
       - name: Install FFmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - name: Install free French voice generator
+      - name: Install local voice generator
         run: python -m pip install -r scripts/requirements-voice.txt
       - name: Generate any missing French voice clips
         run: npm run generate:voice

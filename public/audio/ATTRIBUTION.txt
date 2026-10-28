@@ -1,8 +1,7 @@
-French speech clips in this folder were generated with the Piper fr_FR-siwis-medium voice.
+French speech clips in this folder are generated with the Kokoro-82M model using its French `ff_siwis` voice.
 
-Voice model: https://huggingface.co/rhasspy/piper-voices/tree/main/fr/fr_FR/siwis/medium
-Model card and dataset license: Creative Commons Attribution 4.0 International (CC BY 4.0)
-Dataset: SIWIS, https://datashare.is.ed.ac.uk/handle/10283/2353
-Piper project: https://github.com/OHF-Voice/piper1-gpl
-
-The included MP3 files are generated speech clips for the Pas à pas French-learning app.
+Kokoro-82M model: https://huggingface.co/hexgrad/Kokoro-82M
+Model license: Apache License 2.0
+French voice data: SIWIS, https://datashare.is.ed.ac.uk/handle/10283/2353
+SIWIS dataset license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+Kokoro ONNX runtime: https://github.com/thewh1teagle/kokoro-onnx
