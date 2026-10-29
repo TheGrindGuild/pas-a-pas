@@ -15,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
+  SidebarTrigger,
   useSidebar
 } from "./ui/sidebar";
 
@@ -52,21 +53,24 @@ export default function AppSidebar({ activityId, theme, themes, gender, onThemeC
   return (
     <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
-        <a className="brand sidebar-brand" href="#" aria-label="Pas à pas — accueil" onClick={closeMobile}>
-          <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
-            <rect x="1" y="1" width="38" height="38" rx="11" fill="var(--teal)" />
-            <ellipse cx="14" cy="24" rx="5" ry="7.5" fill="#fff" />
-            <circle cx="11.5" cy="14" r="1.8" fill="#fff" />
-            <circle cx="15.5" cy="13.5" r="1.6" fill="#fff" />
-            <ellipse cx="26.5" cy="18" rx="5" ry="7.5" fill="var(--sun)" />
-            <circle cx="24" cy="8" r="1.8" fill="var(--sun)" />
-            <circle cx="28" cy="7.5" r="1.6" fill="var(--sun)" />
-          </svg>
-          <span>
-            <b>Pas à pas</b>
-            <small>Français de base · 4<sup>e</sup>–5<sup>e</sup> année</small>
-          </span>
-        </a>
+        <div className="sidebar-header-row">
+          <a className="brand sidebar-brand" href="#" aria-label="Pas à pas — accueil" onClick={closeMobile}>
+            <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+              <rect x="1" y="1" width="38" height="38" rx="11" fill="var(--teal)" />
+              <ellipse cx="14" cy="24" rx="5" ry="7.5" fill="#fff" />
+              <circle cx="11.5" cy="14" r="1.8" fill="#fff" />
+              <circle cx="15.5" cy="13.5" r="1.6" fill="#fff" />
+              <ellipse cx="26.5" cy="18" rx="5" ry="7.5" fill="var(--sun)" />
+              <circle cx="24" cy="8" r="1.8" fill="var(--sun)" />
+              <circle cx="28" cy="7.5" r="1.6" fill="var(--sun)" />
+            </svg>
+            <span>
+              <b>Pas à pas</b>
+              <small>Français de base · 4<sup>e</sup>–5<sup>e</sup> année</small>
+            </span>
+          </a>
+          <SidebarTrigger className="sidebar-collapse-trigger" aria-label="Réduire ou agrandir le menu" />
+        </div>
       </SidebarHeader>
       <SidebarSeparator />
       <SidebarContent>

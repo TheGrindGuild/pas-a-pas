@@ -1,8 +1,8 @@
 import { Settings2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
+import ColorThemePicker from "./ColorThemePicker";
 import { speak } from "./activities/shared";
-import { SidebarTrigger } from "./ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,8 +29,8 @@ export default function Header({ big, slow, calm, voiceNote, onBigChange, onSlow
     <header className="top">
       <div className="wrap">
         <div className="bar">
-          <SidebarTrigger aria-label="Afficher ou masquer la navigation" />
           <span className="spacer" />
+          <ColorThemePicker />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="iconbtn settings-trigger"><Settings2 aria-hidden="true" /><span className="lbl">Réglages</span></Button>
