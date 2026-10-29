@@ -1,0 +1,7 @@
+French speech clips in this folder are generated with the Kokoro-82M model using its French `ff_siwis` voice.
+
+Kokoro-82M model: https://huggingface.co/hexgrad/Kokoro-82M
+Model license: Apache License 2.0
+French voice data: SIWIS, https://datashare.is.ed.ac.uk/handle/10283/2353
+SIWIS dataset license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+Kokoro ONNX runtime: https://github.com/thewh1teagle/kokoro-onnx
