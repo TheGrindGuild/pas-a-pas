@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -87,6 +88,38 @@ def ensure_model() -> tuple[Path, Path]:
     return model_path, voices_path
 
 
+def resolve_ffmpeg() -> str:
+    env_path = os.environ.get("PAS_A_PAS_FFMPEG_PATH")
+    if env_path:
+        candidate = Path(env_path).expanduser()
+        if candidate.exists() and candidate.is_file():
+            return str(candidate)
+        raise RuntimeError(
+            f"PAS_A_PAS_FFMPEG_PATH points to a missing file: {candidate}"
+        )
+
+    path = shutil.which("ffmpeg") or shutil.which("ffmpeg.exe")
+    if path:
+        return path
+
+    if sys.platform.startswith("win"):
+        candidates = [
+            Path(r"C:\\ffmpeg\\bin\\ffmpeg.exe"),
+            Path(r"C:\\ffmpeg\\ffmpeg.exe"),
+            Path(r"C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe"),
+            Path(r"C:\\Program Files (x86)\\ffmpeg\\bin\\ffmpeg.exe"),
+        ]
+        for candidate in candidates:
+            if candidate.exists():
+                return str(candidate)
+
+    raise RuntimeError(
+        "FFmpeg was not found. Install it and ensure the `ffmpeg` command is on PATH, "
+        "or set PAS_A_PAS_FFMPEG_PATH to the ffmpeg executable. On Windows, try: "
+        "winget install Gyan.Dev.FFmpeg"
+    )
+
+
 def generate_audio(tts, text: str, target: Path) -> None:
     import soundfile as sf
 
@@ -96,6 +129,7 @@ def generate_audio(tts, text: str, target: Path) -> None:
         speed=1.0,
         lang="fr-fr",
     )
+    ffmpeg_path = resolve_ffmpeg()
     with tempfile.TemporaryDirectory(dir=OUTPUT) as temporary_directory:
         temporary_path = Path(temporary_directory)
         wav_path = temporary_path / "clip.wav"
@@ -103,7 +137,7 @@ def generate_audio(tts, text: str, target: Path) -> None:
         sf.write(wav_path, samples, sample_rate)
         subprocess.run(
             [
-                "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+                ffmpeg_path, "-hide_banner", "-loglevel", "error", "-y",
                 "-i", str(wav_path), "-ac", "1", "-ar", "24000",
                 "-c:a", "libmp3lame", "-b:a", "48k", str(mp3_path),
             ],

@@ -30,6 +30,7 @@ type ColorTheme = {
 
 type ColorMode = "system" | "light" | "dark";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SYSTEM_THEME_ID = "system";
 const SYSTEM_PREVIEW: ThemeColors = {
   paper: "#F3F6F9",
@@ -428,6 +429,11 @@ function createLightVariant(colors: ThemeColors): ThemeColors {
 
 function applyTheme(theme: ColorTheme, mode: ColorMode, systemDark: boolean) {
   const root = document.documentElement;
+  root.dataset.colorTheme = theme.id;
+  const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+  if (favicon) {
+    favicon.href = `${BASE_PATH}/${theme.id === "halloween" ? "favicon-halloween.svg" : "favicon.svg"}`;
+  }
   const isDark = mode === "dark" || (mode === "system" && systemDark);
   const { paper, card, ink, teal } = theme.colors[isDark ? "dark" : "light"];
   root.style.setProperty("--paper", paper);

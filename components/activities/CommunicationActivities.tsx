@@ -2,14 +2,16 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ActivityProps } from "./shared";
-import { Counter, Feedback, Navigation, pick, praise, shuffle, speak, wordText, WordPicture, type VocabularyWord } from "./shared";
+import { Counter, Feedback, hasBundledAudio, Navigation, pick, praise, shuffle, speak, wordText, WordPicture, type VocabularyWord } from "./shared";
 import { NUMS } from "./data";
 import { Button } from "../ui/button";
 
 const SENTENCE_FRAMES: Record<string, (text: string, word: VocabularyWord) => [string, string, string]> = {
   besoins: (_text, word) => ["J'ai besoin", word.s ?? word.fr, "."],
   emotions: text => ["Je suis", text, "."],
-  couleurs: (_text, word) => ["J'aime le", word.fr, "."],
+  couleurs: (_text, word) => word.fr === "orange"
+    ? ["J'aime", "l'orange", "."]
+    : ["J'aime le", word.fr, "."],
   nombres: text => ["J'ai", text, "ans."],
   nourriture: text => ["J'aime", text, "."],
   canada: text => ["J'aime", text, "."],
@@ -26,18 +28,20 @@ export function PhraseActivity({ theme, gender, slow }: ActivityProps) {
   const text = chosen ? wordText(chosen, gender) : wordText(words[0], gender);
   const frame = (SENTENCE_FRAMES[theme.id] ?? (value => ["Voici", value, "."]))(text, chosen ?? words[0]);
   const sentence = `${frame[0]} ${frame[1]} ${frame[2]}`.replace(/\s+/g, " ").trim();
+  const speechText = hasBundledAudio(sentence) ? sentence : text;
   return (
     <>
       <div className="frame" aria-live="polite"><span>{frame[0]}</span><span className={`slot${chosen ? " filled" : ""}`}>
         {chosen ? <><span className="p"><WordPicture word={chosen} gender={gender} /></span>{frame[1]}</> : "?"}
       </span>{frame[2] && <span>{frame[2]}</span>}</div>
-      <div className="btns" style={{ marginBottom: 12 }}><Button type="button" className="btn main" disabled={!chosen} onClick={() => speak(sentence, slow)}>🔊 Écoute la phrase</Button></div>
+      <div className="btns" style={{ marginBottom: 12 }}><Button type="button" className="btn main" disabled={!chosen} onClick={() => speak(speechText, slow)}>{speechText === sentence ? "🔊 Écoute la phrase" : "🔊 Écoute le mot"}</Button></div>
       {chosen && <SayThree />}
       <div className="pickgrid">{words.map((word, index) =>
         <Button key={index} type="button" variant="outline" className="card" aria-pressed={chosen === word} onClick={() => {
           setChosen(word);
           const parts = (SENTENCE_FRAMES[theme.id] ?? (value => ["Voici", value, "."]))(wordText(word, gender), word);
-          speak(`${parts[0]} ${parts[1]} ${parts[2]}`.replace(/\s+/g, " ").trim(), slow);
+          const phrase = `${parts[0]} ${parts[1]} ${parts[2]}`.replace(/\s+/g, " ").trim();
+          speak(hasBundledAudio(phrase) ? phrase : wordText(word, gender), slow);
         }}><span className="p"><WordPicture word={word} gender={gender} /></span><span className="w">{wordText(word, gender)}</span></Button>
       )}</div>
     </>
@@ -72,8 +76,11 @@ export function JacquesActivity({ slow }: ActivityProps) {
   const answer = (move: boolean) => {
     const correct = move === challenge.says;
     setFeedback(correct ? praise() : "Essaie encore !");
-    if (correct) setRound(round + 1);
-    setChallenge(nextChallenge(SIMON.indexOf(challenge.item), round + 1));
+    if (correct) {
+      const nextRound = round + 1;
+      setRound(nextRound);
+      setChallenge(nextChallenge(SIMON.indexOf(challenge.item), nextRound));
+    }
   };
   return <div className="flash">
     <div className="big"><span className="emoji">{challenge.item.e}</span></div>
@@ -177,9 +184,11 @@ export function EnregistreActivity({ theme, gender, slow }: ActivityProps) {
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const recordingTimeoutRef = useRef<number | null>(null);
+  const recordingRequestRef = useRef(0);
   const word = theme.words[index];
   useEffect(() => {
     return () => {
+      recordingRequestRef.current++;
       if (recordingTimeoutRef.current !== null) window.clearTimeout(recordingTimeoutRef.current);
       if (recorderRef.current?.state === "recording") {
         recorderRef.current.onstop = null;
@@ -193,8 +202,32 @@ export function EnregistreActivity({ theme, gender, slow }: ActivityProps) {
       if (audioUrl) URL.revokeObjectURL(audioUrl);
     };
   }, [audioUrl]);
+  const cancelRecording = () => {
+    recordingRequestRef.current++;
+    if (recordingTimeoutRef.current !== null) {
+      window.clearTimeout(recordingTimeoutRef.current);
+      recordingTimeoutRef.current = null;
+    }
+    if (recorderRef.current?.state === "recording") {
+      recorderRef.current.onstop = null;
+      recorderRef.current.stop();
+    }
+    streamRef.current?.getTracks().forEach(track => track.stop());
+    streamRef.current = null;
+    chunksRef.current = [];
+    setRecording(false);
+  };
+  const playRecording = (url: string) => {
+    void new Audio(url).play().catch(() => {
+      setFeedback("Impossible de lire cet enregistrement sur cet appareil.");
+    });
+  };
   const startRecording = async () => {
     if (recording) {
+      if (recordingTimeoutRef.current !== null) {
+        window.clearTimeout(recordingTimeoutRef.current);
+        recordingTimeoutRef.current = null;
+      }
       recorderRef.current?.stop();
       return;
     }
@@ -203,8 +236,14 @@ export function EnregistreActivity({ theme, gender, slow }: ActivityProps) {
       setFeedback("Le micro n'est pas disponible ici.");
       return;
     }
+    const requestId = ++recordingRequestRef.current;
     try {
-      streamRef.current ??= await navigator.mediaDevices.getUserMedia({ audio: true });
+      const stream = streamRef.current ?? await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (requestId !== recordingRequestRef.current) {
+        if (stream !== streamRef.current) stream.getTracks().forEach(track => track.stop());
+        return;
+      }
+      streamRef.current = stream;
       chunksRef.current = [];
       const recorder = new MediaRecorder(streamRef.current);
       recorderRef.current = recorder;
@@ -212,11 +251,15 @@ export function EnregistreActivity({ theme, gender, slow }: ActivityProps) {
         if (event.data.size) chunksRef.current.push(event.data);
       };
       recorder.onstop = () => {
+        if (recordingTimeoutRef.current !== null) {
+          window.clearTimeout(recordingTimeoutRef.current);
+          recordingTimeoutRef.current = null;
+        }
         const nextUrl = URL.createObjectURL(new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" }));
         setAudioUrl(nextUrl);
         setRecording(false);
         setFeedback("Écoute ta voix, puis le modèle.");
-        void new Audio(nextUrl).play();
+        playRecording(nextUrl);
       };
       recorder.start();
       setRecording(true);
@@ -225,11 +268,15 @@ export function EnregistreActivity({ theme, gender, slow }: ActivityProps) {
         if (recorder.state === "recording") recorder.stop();
       }, 6000);
     } catch {
+      if (requestId !== recordingRequestRef.current) return;
+      streamRef.current?.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
       setAvailable(false);
       setFeedback("Le micro n'est pas disponible ici.");
     }
   };
   const move = (offset: number) => {
+    cancelRecording();
     const next = (index + offset + theme.words.length) % theme.words.length;
     setIndex(next);
     setFeedback("");
@@ -242,7 +289,7 @@ export function EnregistreActivity({ theme, gender, slow }: ActivityProps) {
     <div className="recrow">
       <Button type="button" variant="outline" className="btn" onClick={() => speak(wordText(word, gender), slow)}>🔊 Le modèle</Button>
       <Button type="button" className={`btn main mic${recording ? " live" : ""}`} disabled={!available} aria-pressed={recording} onClick={startRecording}>{recording ? "⏹️ Arrête" : "🎙️ Enregistre"}</Button>
-      <Button type="button" variant="outline" className="btn" disabled={!audioUrl} onClick={() => { if (audioUrl) void new Audio(audioUrl).play(); }}>▶️ Ma voix</Button>
+      <Button type="button" variant="outline" className="btn" disabled={!audioUrl} onClick={() => { if (audioUrl) playRecording(audioUrl); }}>▶️ Ma voix</Button>
     </div>
     <Feedback tone={audioUrl ? "ok" : !available ? "try" : ""}>{feedback}</Feedback>
     <Navigation current={index + 1} total={theme.words.length} onPrevious={() => move(-1)} onNext={() => move(1)} />

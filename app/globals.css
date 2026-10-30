@@ -109,18 +109,20 @@ header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; b
 [data-slot="sidebar"][data-collapsible="icon"] [data-sidebar="header"] { padding: 4px; }
 [data-slot="sidebar"][data-collapsible="icon"] .sidebar-brand { justify-content: center; padding: 4px; }
 [data-slot="sidebar"][data-collapsible="icon"] .sidebar-brand > span { display: none; }
-[data-slot="sidebar"][data-collapsible="icon"] .sidebar-brand svg { width: 32px; height: 32px; }
+[data-slot="sidebar"][data-collapsible="icon"] .sidebar-brand .brand-mark { width: 32px; height: 32px; }
 [data-slot="sidebar"] .sidebar-header-row { display: flex; align-items: center; gap: 4px; }
 [data-slot="sidebar"] .sidebar-brand { flex: 1; min-width: 0; }
 [data-slot="sidebar"] .sidebar-collapse-trigger { flex: none; }
 [data-slot="sidebar"][data-collapsible="icon"] .sidebar-header-row { flex-direction: column; gap: 2px; }
 [data-slot="sidebar"][data-collapsible="icon"] .sidebar-brand { flex: none; }
+html:not([data-color-theme="halloween"]) .sidebar-brand .brand-mark-halloween,
+html[data-color-theme="halloween"] .sidebar-brand .brand-mark-default { display: none; }
 .sidebar-inset { min-width: 0; }
 .activity-main { padding-block: 22px 60px; }
 .sidebar-inset > header.top { position: sticky; top: env(safe-area-inset-top, 0px); }
 .sidebar-inset > header.top .wrap { max-width: none; }
 .sidebar-inset > header.top .bar { min-height: 54px; }
-.brand svg { flex: none; }
+.brand-mark { flex: none; width: 40px; height: 40px; }
 .brand b { font-family: var(--font-display); font-weight: 800; font-size: 1.55rem; letter-spacing: .2px; }
 .brand small { display: block; font-size: .78rem; color: var(--muted); margin-top: -6px; letter-spacing: .3px; }
 .brand.sidebar-brand b { display: block; font-size: 1.25rem; line-height: 1.2; }
@@ -248,7 +250,7 @@ details.teacher p, details.teacher li { color: var(--muted); font-size: .92rem; 
 
 /* choices */
 .choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; width: 100%; max-width: 720px; }
-.choice { aspect-ratio: 1; max-width: 100%; border-radius: var(--r); border: 3px solid var(--line); background: var(--card); display: grid; place-items: center; font-size: clamp(64px, 12vw, 96px); transition: transform .15s, opacity .2s; }
+.choice { aspect-ratio: 1; width: 100%; height: auto; min-height: 140px; max-width: 100%; border-radius: var(--r); border: 3px solid var(--line); background: var(--card); display: grid; place-items: center; font-size: clamp(64px, 12vw, 96px); transition: transform .15s, opacity .2s; }
 .choice .week { font-size: clamp(64px, 12vw, 96px); }
 .choice.good { border-color: var(--ok); background: var(--ok-soft); }
 .choice.nope { opacity: .35; }
@@ -355,6 +357,18 @@ canvas#trace { display: block; width: 100%; touch-action: none; cursor: crosshai
 .frame .slot .p { font-size: 1.2em; line-height: 1; }
 .frame .slot .p .week { font-size: 1.1em; }
 .pickgrid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.sentence-builder { display: grid; justify-items: center; gap: 14px; }
+.sentence-prompt { margin: 0; color: var(--muted); font-weight: 700; text-align: center; }
+.sentence-answer, .sentence-bank { display: flex; width: 100%; max-width: 760px; min-height: 76px; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 14px; }
+.sentence-answer { border: 3px dashed var(--teal); background: var(--teal-soft); }
+.sentence-bank { border: 2px solid var(--line); background: var(--paper); }
+.sentence-placeholder { color: var(--muted); text-align: center; }
+.sentence-tile { height: auto; min-height: 48px; padding: 8px 14px; border: 2px solid var(--line); border-radius: 12px; background: var(--card); font-weight: 700; font-size: 1.05rem; }
+.sentence-tile.placed { border-color: var(--teal); }
+.sentence-tile[draggable="true"] { cursor: grab; }
+.sentence-tile[draggable="true"]:active { cursor: grabbing; }
+.sentence-finished { display: grid; justify-items: center; gap: 16px; text-align: center; }
+.sentence-finished p { margin: 0; color: var(--ok); font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; }
 
 /* jacques a dit */
 .simon { display: grid; gap: 4px; justify-items: center; }

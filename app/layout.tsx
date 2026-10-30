@@ -1,9 +1,14 @@
 import type { ReactNode } from "react";
 import "./globals.css";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata = {
   title: "Pas à pas",
-  description: "Activités de français de base pour les élèves de 4e et 5e année."
+  description: "Activités de français de base pour les élèves de 4e et 5e année.",
+  icons: {
+    icon: `${BASE_PATH}/favicon.svg`
+  }
 };
 
 export const viewport = {

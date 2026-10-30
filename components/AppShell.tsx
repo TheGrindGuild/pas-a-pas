@@ -5,17 +5,13 @@ import ActivityView from "./ActivityView";
 import AppSidebar from "./AppSidebar";
 import Header from "./Header";
 import { THEMES } from "./activities/data";
-import type { Gender } from "./activities/shared";
+import { normalizeSpeechText, type Gender } from "./activities/shared";
 import type { Theme } from "./activities/data";
 import voiceAssets from "@/lib/voice-assets.json";
 import { SidebarInset, SidebarProvider } from "./ui/sidebar";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const VOICE_SAMPLE = "Bonjour ! Je m'appelle la voix française.";
-
-function normalizeSpeechText(text: string): string {
-  return text.normalize("NFC").replace(/\s+([!?.,;:])/g, "$1").replace(/\s+/g, " ").trim();
-}
 
 export default function AppShell() {
   const [theme, setTheme] = useState<Theme>(THEMES.find(item => item.id === "animaux") ?? THEMES[0]);
@@ -27,6 +23,7 @@ export default function AppShell() {
   const [speechError, setSpeechError] = useState("");
   const activeAudio = useRef<HTMLAudioElement | null>(null);
   const audioCache = useRef(new Map<string, HTMLAudioElement>());
+  const speechRequest = useRef(0);
 
   useEffect(() => {
     const storedTheme = readStored("theme", "animaux");
@@ -65,6 +62,7 @@ export default function AppShell() {
       }
 
       setSpeechError("");
+      const requestId = ++speechRequest.current;
       activeAudio.current?.pause();
       const source = `${BASE_PATH}/audio/${assetId}.mp3`;
       let audio = audioCache.current.get(assetId);
@@ -82,12 +80,15 @@ export default function AppShell() {
       audio.preservesPitch = true;
       activeAudio.current = audio;
       void audio.play().catch(error => {
+        if (requestId !== speechRequest.current
+          || (typeof error === "object" && error !== null && "name" in error && error.name === "AbortError")) return;
         console.error("Could not play bundled French audio", error);
         setSpeechError("Impossible de lire l'audio français sur cet appareil.");
       });
     };
     window.addEventListener("pas-a-pas:speech", handleSpeechRequest);
     return () => {
+      speechRequest.current++;
       window.removeEventListener("pas-a-pas:speech", handleSpeechRequest);
       activeAudio.current?.pause();
     };
