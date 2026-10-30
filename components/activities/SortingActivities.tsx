@@ -248,7 +248,7 @@ export function MemoireActivity({ theme, gender, slow }: ActivityProps) {
       <div className="mem">{cards.map((card, index) => {
         const isOpen = open.includes(index) || found.includes(card.id);
         return <Button key={index} type="button" variant="outline" className={`mcard${isOpen ? " up" : ""}${found.includes(card.id) ? " found" : ""}`}
-          aria-label={`Carte ${index + 1}`} disabled={locked || found.includes(card.id)} onClick={() => {
+          aria-label={`Carte ${index + 1}`} disabled={locked || found.includes(card.id) || open.includes(index)} onClick={() => {
             setOpen([...open, index]);
             speak(wordText(card.word, gender), slow);
           }}>

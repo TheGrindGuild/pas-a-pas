@@ -303,7 +303,7 @@ J'aime le rouge.
 J'aime le bleu.
 J'aime le jaune.
 J'aime le vert.
-J'aime le orange.
+J'aime l'orange.
 J'aime le violet.
 J'aime le rose.
 J'aime le noir.
@@ -487,3 +487,51 @@ J'aime le canot.
 J'aime la poutine.
 J'aime l'ours polaire.
 J'aime le lac.
+Bonjour !
+Je dis merci.
+Bonne nuit !
+Le ciel est bleu.
+Le soleil est jaune.
+J'ai trois pommes.
+J'ai deux ans.
+Il y a cinq livres.
+J'ai un stylo.
+Où est la règle ?
+Je vois le chat.
+Le chien court.
+L'oiseau chante.
+Voici ma mère.
+Mon frère joue.
+J'aime mon père.
+Je mange du pain.
+Je bois du lait.
+Je porte le chandail.
+La robe est rouge.
+Mes bottes sont noires.
+J'ai deux yeux.
+Mon nez est petit.
+Je lève la main.
+Il pleut aujourd'hui.
+Il y a des nuages.
+Demain, c'est mardi.
+Samedi, je joue.
+Elle est contente.
+Il est fatigué.
+Jacques dit : écoute !
+Regarde le tableau.
+Je vais à l'école.
+La classe est grande.
+L'autobus arrive.
+Je m'appelle Alex.
+C'est l'Halloween !
+Le fantôme arrive.
+La citrouille est orange.
+Il neige en hiver.
+Le bonhomme de neige est grand.
+J'aime le chocolat chaud.
+Le père Noël arrive.
+Le sapin est vert.
+J'aime les cadeaux.
+J'aime le Canada.
+Le castor nage.
+La poutine est bonne.

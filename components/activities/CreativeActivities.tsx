@@ -72,7 +72,7 @@ export function TraceActivity({ theme, gender, slow }: ActivityProps) {
         <span className="word" style={{ fontSize: "2rem" }}>{wordText(word, gender)}</span>
         <Button type="button" variant="outline" className="btn" onClick={() => speak(wordText(word, gender), slow)}>🔊 Écoute</Button>
       </div>
-      <div className="canvas-wrap"><canvas ref={canvasRef} aria-label="Zone pour tracer le mot" style={{ height: 220 }}
+      <div className="canvas-wrap"><canvas id="trace" ref={canvasRef} aria-label="Zone pour tracer le mot" style={{ height: 220 }}
         onPointerDown={event => {
           event.currentTarget.setPointerCapture(event.pointerId);
           activeStrokeRef.current = [point(event)];
@@ -104,7 +104,7 @@ export function ColorieActivity({ gender, slow }: ActivityProps) {
   const [colors, setColors] = useState<(string | null)[]>(Array(12).fill(null));
   const [feedback, setFeedback] = useState("");
   const cells = Array.from({ length: 12 }, (_, index) => index);
-  const colorAt = (index: number) => COLOR_NAMES[(index * 3 + 2) % COLOR_NAMES.length];
+  const colorAt = (index: number) => COLOR_NAMES[((index % 5) * 3 + 2) % COLOR_NAMES.length];
   const colorName = (color: string) => gender === "f" ? FEM_COL[color] ?? color : color;
   const reset = () => {
     setColors(Array(12).fill(null));
@@ -121,6 +121,7 @@ export function ColorieActivity({ gender, slow }: ActivityProps) {
           <Button key={index} type="button" variant="outline" aria-label={`Région ${index + 1}, numéro ${index % 5 + 1}`}
             onClick={() => {
               const correct = colorAt(index);
+              const number = index % 5 + 1;
               if (!selected) {
                 setFeedback("Choisis une couleur d'abord.");
               } else if (selected === correct) {
@@ -128,10 +129,10 @@ export function ColorieActivity({ gender, slow }: ActivityProps) {
                 next[index] = selected;
                 setColors(next);
                 setFeedback(praise());
-                speak(`${NUMS[index % 5 + 1]}, ${colorName(selected)}`, slow);
+                speak(NUMS[number], slow);
               } else {
-                setFeedback(`Numéro ${NUMS[index % 5 + 1]} : ${colorName(correct)}`);
-                speak(`Numéro ${NUMS[index % 5 + 1]} : ${colorName(correct)}`, slow);
+                setFeedback(`Numéro ${NUMS[number]} : ${colorName(correct)}`);
+                speak(colorName(correct), slow);
               }
             }}
             style={{ backgroundColor: colors[index] ? COLORS[colors[index]!] : "#fff" }}>{index % 5 + 1}</Button>

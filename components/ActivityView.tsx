@@ -20,6 +20,7 @@ import {
   ManqueActivity,
   PhraseActivity
 } from "./activities/CommunicationActivities";
+import { ConstruisActivity } from "./activities/SentenceActivities";
 import { EcouteActivity, LisActivity, TrouveActivity } from "./activities/PracticeActivities";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -35,6 +36,7 @@ const ACTIVITY_CARDS = [
   { id: "associe", description: "Relie chaque image à son mot.", uses: "thème", icon: "🔗", color: "#E0F4F7", ink: "#0F6F80" },
   { id: "memoire", description: "Retourne les cartes. Trouve les paires.", uses: "thème", icon: "🃏", color: "#F3E6FF", ink: "#7A4CC2" },
   { id: "phrase", description: "Choisis une image pour finir la phrase.", uses: "thème", icon: "💬", color: "#FFF1C9", ink: "#C2410C" },
+  { id: "construis", description: "Écoute la phrase, construis-la, puis dis-la deux fois après une bonne réponse.", uses: "thème", icon: "🧩", color: "#E0F4F7", ink: "#0F6F80" },
   { id: "jacques", description: "Bouge seulement si Jacques le dit !", uses: "mouvement", icon: "🏃", color: "#E0F4F7", ink: "#0F7C7A" },
   { id: "manque", description: "Regarde les images. Laquelle est partie ?", uses: "thème", icon: "❔", color: "#E4EDFF", ink: "#2B5FD9" },
   { id: "lettre", description: "Trouve la lettre qui manque dans le mot.", uses: "thème", icon: "🔤", color: "#FFE5E8", ink: "#B3122A" },
@@ -87,7 +89,7 @@ function Home({ theme }: { theme: Theme }) {
       <details className="teacher"><summary>For teachers and families</summary><div className="cols">
         <div><h4>Who it&apos;s for</h4><p>Beginner Grade 4–5 Core French learners who need extra repetition, picture support, audio, and low-pressure practice. There are no timers, scores or lives. Wrong answers get a gentle hint and another try.</p></div>
         <div><h4>Audio</h4><p>French audio clips are bundled with the app and work without a speech service or a voice installed on the device. <b>Réglages → Voix lente</b> slows them down.</p></div>
-        <div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li><li><b>Enregistre-toi</b> needs microphone permission. Recordings stay in the browser and are deleted when the student leaves the activity.</li></ul></div>
+        <div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li>        <li>Word tiles can be dragged or tapped, so touchscreens and keyboards work too</li><li><b>Enregistre-toi</b> needs microphone permission. Recordings stay in the browser and are deleted when the student leaves the activity.</li></ul></div>
       </div></details>
     </>
   );
@@ -111,6 +113,7 @@ export default function ActivityView({ activityId, theme, gender, slow, onGender
     case "associe": activity = <AssocieActivity key={theme.id} {...props} />; break;
     case "memoire": activity = <MemoireActivity key={theme.id} {...props} />; break;
     case "phrase": activity = <PhraseActivity {...props} />; break;
+    case "construis": activity = <ConstruisActivity key={theme.id} {...props} />; break;
     case "jacques": activity = <JacquesActivity {...props} />; break;
     case "manque": activity = <ManqueActivity key={theme.id} {...props} />; break;
     case "lettre": activity = <LettreActivity key={`${theme.id}-${gender}`} {...props} />; break;

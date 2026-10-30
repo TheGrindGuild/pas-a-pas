@@ -6,9 +6,18 @@ export type { VocabularyWord } from "./data";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
+import voiceAssets from "@/lib/voice-assets.json";
 
 export type Gender = "m" | "f";
 export type SpeechRequest = { text: string; slow: boolean };
+
+export function normalizeSpeechText(text: string): string {
+  return text.normalize("NFC").replace(/\s+([!?.,;:])/g, "$1").replace(/\s+/g, " ").trim();
+}
+
+export function hasBundledAudio(text: string): boolean {
+  return Boolean(voiceAssets[normalizeSpeechText(text)]);
+}
 
 declare global {
   interface WindowEventMap {
@@ -71,7 +80,8 @@ export const ACTIVITY_GUIDANCE: Record<string, string> = {
   points: "Compte en français et touche les points dans l'ordre.",
   associe: "Touche une image, puis touche son mot. Les paires prennent la même couleur.",
   memoire: "Touche deux cartes. Si c'est la même image, c'est une paire !",
-  phrase: "Choisis une image. Elle finit la phrase. Écoute la phrase, puis dis-la à voix haute.",
+  phrase: "Choisis une image pour compléter la phrase.",
+  construis: "Touche « Parle la phrase » pour l'entendre, construis-la, puis dis-la à voix haute deux fois après une bonne réponse.",
   jacques: "Écoute l'ordre. Bouge seulement si Jacques a dit !",
   manque: "Regarde les images. Laquelle est partie ?",
   lettre: "Regarde l'image et écoute le mot. Quelle lettre manque ?",
@@ -88,7 +98,8 @@ export const ACTIVITY_NAMES: Record<string, string> = {
   points: "Relie les points",
   associe: "Associe",
   memoire: "Mémoire",
-  phrase: "Bâtis la phrase",
+  phrase: "Complète la phrase",
+  construis: "Construis la phrase",
   jacques: "Jacques a dit",
   manque: "Qu'est-ce qui manque ?",
   lettre: "La lettre manquante",

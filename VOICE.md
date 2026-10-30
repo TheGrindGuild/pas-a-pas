@@ -4,7 +4,7 @@ Speech uses MP3 clips bundled in `public/audio`, so playback works on GitHub Pag
 
 ## Set up local generation
 
-Use Python 3.12 (Kokoro does not yet support Python 3.14) and install FFmpeg so the `ffmpeg` command is available on your PATH.
+Use Python 3.12 (Kokoro does not yet support Python 3.14) and install FFmpeg so the `ffmpeg` command is available on your PATH. On Windows, install FFmpeg first with `winget install Gyan.Dev.FFmpeg` (or another FFmpeg package that adds `ffmpeg.exe` to PATH).
 
 On Windows PowerShell, create and activate a virtual environment, then install the generator dependencies:
 
