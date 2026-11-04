@@ -290,6 +290,132 @@ canvas#trace { display: block; width: 100%; touch-action: none; cursor: crosshai
 .mic.live { background: var(--accent); border-color: var(--accent); animation: pulse 1.2s ease infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 25%, transparent); } }
 
+/* strands on the home page */
+.strand { margin: 26px 0 12px; display: flex; align-items: center; gap: 12px; }
+.strand .sic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 24px; background: var(--card); border: 2px solid var(--line); }
+.strand h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; margin: 0; line-height: 1.1; }
+.strand small { display: block; color: var(--muted); font-size: .8rem; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; }
+
+/* devine le mot */
+.pendu-top { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; }
+.flower { width: 130px; height: auto; overflow: visible; }
+.pet { transition: transform .9s ease-in, opacity .9s ease-in; transform-box: fill-box; transform-origin: center; }
+.pet.fall { transform: translateY(120px) rotate(70deg); opacity: 0; }
+.hword { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 6px 4px; font-size: clamp(1.7rem, 7vw, 2.6rem); max-width: 100%; }
+.hgrp { display: inline-flex; gap: 4px; }
+.hsp { width: .7em; }
+.hart { color: var(--muted); margin-right: .3em; }
+.hch { min-width: .9em; text-align: center; border-bottom: 4px solid var(--ink); line-height: 1.2; }
+.hch.in { color: var(--ok); }
+.hch.shown { color: var(--accent); }
+.hch.sym { border-bottom: 0; min-width: 0; }
+.kbd { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 7px; width: 100%; max-width: 620px; }
+.key { height: 52px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); font-family: var(--font-body); font-weight: 700; font-size: 1.5rem; }
+.key.good { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+.key.nope { opacity: .3; }
+
+/* cherche le mot */
+.ws-wrap { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start; }
+.ws { display: grid; gap: 3px; width: 100%; max-width: 500px; }
+.wc { aspect-ratio: 1; min-width: 0; padding: 0; border-radius: 8px; border: 2px solid var(--line); background: var(--card); font-family: var(--font-body); font-weight: 700; font-size: clamp(.95rem, 4.3vw, 1.55rem); }
+.wc.sel { border-color: var(--accent); background: var(--warn-soft); box-shadow: 0 0 0 3px var(--accent) inset; }
+.wc.got { color: #1D2A3A; border-color: transparent; }
+.wlist { display: grid; gap: 8px; min-width: 200px; flex: 1 1 200px; max-width: 320px; align-content: start; }
+.wchip { display: flex; align-items: center; gap: 10px; text-align: left; padding: 8px 12px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); font-weight: 600; font-size: 1.05rem; }
+.wchip .mini { width: 34px; height: 34px; display: grid; place-items: center; font-size: 26px; flex: none; }
+.wchip .mini .swatch { width: 26px; height: 26px; } .wchip .mini .numeral { font-size: 22px; } .wchip .mini .week { font-size: 14px; }
+.wchip b { font-weight: 800; }
+.wchip.found { border-color: var(--ok); background: var(--ok-soft); }
+.wchip.found span:last-child { text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: var(--ok); }
+
+/* vrai ou faux */
+.vf { display: flex; gap: 16px; justify-content: center; }
+.vfb { display: grid; justify-items: center; width: 130px; padding: 12px; border-radius: var(--r); border: 3px solid var(--line); background: var(--card); font-size: 3rem; font-weight: 800; line-height: 1; }
+.vfb span { font-size: 1.1rem; margin-top: 6px; font-family: var(--font-body); }
+.vfb.vrai { color: var(--ok); } .vfb.faux { color: var(--accent); }
+.vfb.good { background: var(--ok-soft); border-color: var(--ok); }
+.vfb.nope { opacity: .35; }
+
+/* écoute et dessine */
+.pal { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.pcol { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 6px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); font-weight: 700; }
+.pcol[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
+.dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(0,0,0,.2); display: inline-block; flex: none; }
+.drawpad { width: 100%; border-radius: 14px; background: #fff; border: 2px solid var(--line); overflow: hidden; touch-action: none; }
+.drawpad canvas { display: block; width: 100%; }
+.dmodel { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 14px; background: var(--card); border: 2px dashed var(--teal); font-size: 1.4rem; }
+.dmodel .emoji { font-size: 48px; }
+
+/* bingo */
+.bingo { display: grid; gap: 10px; width: 100%; max-width: 440px; }
+.bcell { position: relative; aspect-ratio: 1; min-width: 0; border-radius: 16px; border: 3px solid var(--line); background: var(--card); display: grid; place-items: center; align-content: center; gap: 2px; padding: 4px; }
+.bcell .p { font-size: clamp(40px, 11vw, 64px); line-height: 1; } .bcell .p .week { font-size: clamp(28px, 7vw, 44px); }
+.bcell .w { font-weight: 700; font-size: .9rem; line-height: 1.1; text-align: center; }
+.bcell.on { border-color: var(--ok); background: var(--ok-soft); }
+.bcell.on::after { content: "✓"; position: absolute; top: 4px; right: 8px; color: var(--ok); font-weight: 800; font-size: 1.4rem; }
+
+/* tourne et dis */
+.wheelbox { position: relative; width: min(340px, 82vw); aspect-ratio: 1; }
+.wheel { position: absolute; inset: 0; border-radius: 50%; border: 6px solid var(--ink); container-type: inline-size; transition: transform 3s cubic-bezier(.15,.75,.15,1); }
+.wseg { position: absolute; left: 50%; top: 50%; font-size: 13cqw; line-height: 1; }
+.wseg .swatch { width: 12cqw; height: 12cqw; } .wseg .numeral { font-size: 11cqw; } .wseg .week { font-size: 5cqw; }
+.pointer { position: absolute; left: 50%; top: -14px; transform: translateX(-50%); width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 30px solid var(--accent); z-index: 2; }
+.hub { position: absolute; left: 50%; top: 50%; width: 15%; height: 15%; transform: translate(-50%,-50%); border-radius: 50%; background: var(--ink); }
+.tland { display: grid; justify-items: center; gap: 8px; }
+.tland .say { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; margin: 0; }
+.tword { font-size: 2rem; }
+
+/* les dés */
+.die { display: inline-grid; grid-template-columns: repeat(3, 1fr); gap: 8%; width: 110px; height: 110px; padding: 14%; border-radius: 22%; background: var(--card); border: 4px solid var(--ink); box-shadow: var(--shadow); }
+.die i { border-radius: 50%; }
+.die i.on { background: var(--ink); }
+.tumble { animation: tumble .6s ease; }
+@keyframes tumble { 0% { transform: rotate(0) scale(.6); } 60% { transform: rotate(320deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+.qcard { display: grid; gap: 12px; width: 100%; max-width: 640px; padding: 16px; border-radius: var(--r); background: var(--card); border: 2px solid var(--line); text-align: left; }
+.qline, .aline { display: flex; align-items: center; gap: 12px; font-size: 1.35rem; }
+.flash .qcard .word { flex: 1; font-size: clamp(1.25rem, 4.5vw, 1.6rem); line-height: 1.3; }
+.flash .dmodel .word { font-size: clamp(1.4rem, 5vw, 2.4rem); }
+.qline .emoji { font-size: 40px; }
+.aline { padding: 10px 12px; border-radius: 12px; background: var(--teal-soft); }
+.blank { color: var(--accent); letter-spacing: 2px; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 8px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); font-weight: 700; font-size: 1.05rem; }
+.opt .p { font-size: 26px; line-height: 1; } .opt .swatch { width: 24px; height: 24px; } .opt .numeral { font-size: 20px; }
+.opt[aria-pressed="true"] { border-color: var(--teal); background: var(--teal-soft); }
+.dlegend { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 6px; color: var(--muted); font-size: .95rem; text-align: left; }
+.dlegend li { display: flex; align-items: center; gap: 10px; }
+.dmini .die { width: 30px; height: 30px; border-width: 2px; box-shadow: none; }
+
+/* au magasin */
+.shop { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.sitem { position: relative; display: grid; justify-items: center; gap: 4px; padding: 12px 6px 10px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); }
+.sitem .emoji { font-size: 46px; line-height: 1; }
+.sitem .nm { font-weight: 700; font-size: .95rem; text-align: center; }
+.sitem .price { position: absolute; top: 6px; right: 6px; background: var(--sun); color: #1D2A3A; font-weight: 800; font-size: .8rem; padding: 2px 7px; border-radius: 999px; }
+.sitem:disabled { opacity: .45; }
+.talk { display: grid; gap: 10px; margin: 18px 0 12px; }
+.bubble { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 18px; font-size: 1.25rem; max-width: 560px; }
+.bubble .word { flex: 1; } .bubble .who { font-size: 34px; }
+.bubble.me { background: var(--teal-soft); }
+.bubble.them { background: var(--card); border: 2px solid var(--line); margin-left: auto; }
+.basket { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+.basket .bi { padding: 4px 10px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); font-weight: 600; }
+.basket .tot { font-weight: 800; color: var(--ok); }
+.muted { color: var(--muted); }
+
+/* mini-histoires */
+.spick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.spick .chip { white-space: normal; }
+.stitle { font-family: var(--font-display); font-size: 1.8rem; margin: 4px 0 10px; }
+.story { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
+.sline { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 14px; border: 2px solid transparent; }
+.sline .emoji { font-size: 40px; text-align: center; }
+.sline.now { background: color-mix(in srgb, var(--sun) 28%, var(--card)); border-color: var(--sun); }
+.stext { font-size: clamp(1.25rem, 4.6vw, 1.6rem); line-height: 1.5; }
+.tw { background: none; border: 0; padding: 0 1px; font: inherit; color: inherit; border-radius: 6px; cursor: pointer; }
+.tw:hover, .tw:focus-visible { background: var(--teal-soft); }
+.sl { min-height: 44px; padding: 6px 12px; }
+
 html.calm *, html.calm *::before, html.calm *::after { animation: none !important; transition: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -501,7 +627,16 @@ const IC = {
   jacques: '<circle cx="20" cy="7" r="4.5" fill="currentColor"/><path d="M20 12 L20 25 M20 25 L13 36 M20 25 L27 36 M20 16 L9 9 M20 16 L31 11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>',
   manque: '<rect x="3" y="3" width="15" height="15" rx="3" fill="currentColor"/><rect x="22" y="3" width="15" height="15" rx="3" fill="currentColor"/><rect x="3" y="22" width="15" height="15" rx="3" fill="currentColor"/><rect x="22" y="22" width="15" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 2.5"/><text x="29.5" y="34" text-anchor="middle" font-size="12" font-weight="800" fill="currentColor">?</text>',
   lettre: '<text x="8" y="29" text-anchor="middle" font-size="19" font-weight="800" fill="currentColor" font-family="sans-serif">c</text><rect x="14" y="11" width="12" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="3 2.5"/><text x="32.5" y="29" text-anchor="middle" font-size="19" font-weight="800" fill="currentColor" font-family="sans-serif">t</text>',
-  enregistre: '<rect x="14" y="3" width="12" height="21" rx="6" fill="currentColor"/><path d="M8 18 Q8 30 20 30 Q32 30 32 18 M20 30 L20 37 M13 37 L27 37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>'
+  enregistre: '<rect x="14" y="3" width="12" height="21" rx="6" fill="currentColor"/><path d="M8 18 Q8 30 20 30 Q32 30 32 18 M20 30 L20 37 M13 37 L27 37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+  pendu: '<path d="M20 22 L20 38" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><ellipse cx="20" cy="7" rx="4.5" ry="6" fill="currentColor"/><ellipse cx="11" cy="14" rx="4.5" ry="6" transform="rotate(-70 11 14)" fill="currentColor"/><ellipse cx="29" cy="14" rx="4.5" ry="6" transform="rotate(70 29 14)" fill="currentColor"/><ellipse cx="31" cy="31" rx="4" ry="5.5" transform="rotate(40 31 31)" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2.5 2"/><circle cx="20" cy="15" r="4.5" fill="none" stroke="currentColor" stroke-width="3"/>',
+  cherche: '<rect x="3" y="3" width="34" height="34" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><text x="11" y="17" text-anchor="middle" font-size="9" font-weight="800" fill="currentColor" font-family="sans-serif">M</text><text x="29" y="17" text-anchor="middle" font-size="9" font-weight="800" fill="currentColor" font-family="sans-serif">T</text><rect x="6" y="22" width="28" height="10" rx="5" fill="currentColor"/><text x="20" y="30.5" text-anchor="middle" font-size="8" font-weight="800" fill="#fff" font-family="sans-serif">MOT</text>',
+  vraifaux: '<path d="M4 20 L10 27 L19 12" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 13 L35 27 M35 13 L24 27" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>',
+  dessine: '<path d="M6 34 Q12 22 18 30 T32 26" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M22 20 L33 5 L37 8 L26 23 L21 25 Z" fill="currentColor"/><path d="M5 7 Q9 3 13 7 M8 12 Q12 8 16 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>',
+  bingo: '<rect x="3" y="3" width="34" height="34" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14.3 3 V37 M25.7 3 V37 M3 14.3 H37 M3 25.7 H37" stroke="currentColor" stroke-width="2"/><circle cx="8.7" cy="8.7" r="3.3" fill="currentColor"/><circle cx="20" cy="20" r="3.3" fill="currentColor"/><circle cx="31.3" cy="31.3" r="3.3" fill="currentColor"/>',
+  tourne: '<circle cx="20" cy="22" r="15" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 22 L20 7 M20 22 L33 29.5 M20 22 L7 29.5" stroke="currentColor" stroke-width="2.5"/><path d="M14 1 L26 1 L20 9 Z" fill="currentColor"/>',
+  des: '<rect x="5" y="5" width="30" height="30" rx="7" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="13" cy="13" r="3" fill="currentColor"/><circle cx="20" cy="20" r="3" fill="currentColor"/><circle cx="27" cy="27" r="3" fill="currentColor"/>',
+  magasin: '<path d="M5 15 L35 15 L31 35 L9 35 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M12 15 L18 5 M28 15 L22 5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M14 21 L15 30 M20 21 L20 30 M26 21 L25 30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>',
+  histoires: '<rect x="7" y="3" width="26" height="34" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="14" cy="12" r="3.5" fill="currentColor"/><path d="M20 12 H28 M12 20 H28 M12 26 H28 M12 31 H22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'
 };
 const VIDEO_LISTS = [
   {t:"Français en mouvement", d:"Écoute, copie les gestes, répète.", e:"🕺"},
@@ -510,20 +645,35 @@ const VIDEO_LISTS = [
   {t:"Jeux du Canada", d:"Provinces, capitales et monuments.", e:"🍁"}
 ];
 const ACTS = [
-  {id:"ecoute", t:"Écoute et répète", d:"Écoute le mot. Dis-le trois fois.", uses:"thème", bg:"var(--teal-soft)", fg:"var(--teal)"},
-  {id:"lis", t:"Lis et répète", d:"Lis le mot à voix haute, puis vérifie.", uses:"thème", bg:"#FFF1C9", fg:"#9A6B00"},
-  {id:"trouve", t:"Écoute et trouve", d:"Écoute. Touche la bonne image.", uses:"thème", bg:"#E4EDFF", fg:"#2B5FD9"},
-  {id:"trace", t:"Trace le mot", d:"Suis les lettres avec ton doigt ou la souris.", uses:"thème", bg:"#F3E6FF", fg:"#6A2BC2"},
-  {id:"colorie", t:"Colorie par numéro", d:"Lis le numéro, trouve la couleur.", uses:"couleurs + nombres", bg:"#FFE5E8", fg:"#B3122A"},
-  {id:"trie", t:"Trie les mots", d:"Mets chaque mot dans la bonne boîte.", uses:"thème", bg:"#E2F5EA", fg:"#1E7A4C"},
-  {id:"points", t:"Relie les points", d:"Compte en français et découvre l'image.", uses:"nombres", bg:"#FFEEDD", fg:"#B85A00"},
-  {id:"associe", t:"Associe", d:"Relie chaque image à son mot.", uses:"thème", bg:"#E0F4F7", fg:"#0F6F80"},
-  {id:"memoire", t:"Mémoire", d:"Retourne les cartes. Trouve les paires.", uses:"thème", bg:"", fg:"#7A4CC2"},
-  {id:"phrase", t:"Bâtis la phrase", d:"Choisis une image pour finir la phrase.", uses:"thème", bg:"", fg:"#C2410C"},
-  {id:"jacques", t:"Jacques a dit", d:"Écoute bien. Bouge seulement si Jacques le dit !", uses:"mouvement", bg:"", fg:"#0F7C7A"},
-  {id:"manque", t:"Qu'est-ce qui manque ?", d:"Regarde les images. Laquelle est partie ?", uses:"thème", bg:"", fg:"#2B5FD9"},
-  {id:"lettre", t:"La lettre manquante", d:"Trouve la lettre qui manque dans le mot.", uses:"thème", bg:"", fg:"#B3122A"},
-  {id:"enregistre", t:"Enregistre-toi", d:"Dis le mot au micro. Écoute ta voix.", uses:"thème · micro", bg:"", fg:"#1E7A4C"}
+  {id:"ecoute", st:"parler", t:"Écoute et répète", d:"Écoute le mot. Dis-le trois fois.", uses:"thème", bg:"var(--teal-soft)", fg:"var(--teal)"},
+  {id:"lis", st:"lire", t:"Lis et répète", d:"Lis le mot à voix haute, puis vérifie.", uses:"thème", bg:"#FFF1C9", fg:"#9A6B00"},
+  {id:"trouve", st:"ecouter", t:"Écoute et trouve", d:"Écoute. Touche la bonne image.", uses:"thème", bg:"#E4EDFF", fg:"#2B5FD9"},
+  {id:"trace", st:"ecrire", t:"Trace le mot", d:"Suis les lettres avec ton doigt ou la souris.", uses:"thème", bg:"#F3E6FF", fg:"#6A2BC2"},
+  {id:"colorie", st:"lire", t:"Colorie par numéro", d:"Lis le numéro, trouve la couleur.", uses:"couleurs + nombres", bg:"#FFE5E8", fg:"#B3122A"},
+  {id:"trie", st:"lire", t:"Trie les mots", d:"Mets chaque mot dans la bonne boîte.", uses:"thème", bg:"#E2F5EA", fg:"#1E7A4C"},
+  {id:"points", st:"ecouter", t:"Relie les points", d:"Compte en français et découvre l'image.", uses:"nombres", bg:"#FFEEDD", fg:"#B85A00"},
+  {id:"associe", st:"lire", t:"Associe", d:"Relie chaque image à son mot.", uses:"thème", bg:"#E0F4F7", fg:"#0F6F80"},
+  {id:"memoire", st:"lire", t:"Mémoire", d:"Retourne les cartes. Trouve les paires.", uses:"thème", bg:"", fg:"#7A4CC2"},
+  {id:"phrase", st:"parler", t:"Bâtis la phrase", d:"Choisis une image pour finir la phrase.", uses:"thème", bg:"", fg:"#C2410C"},
+  {id:"jacques", st:"ecouter", t:"Jacques a dit", d:"Écoute bien. Bouge seulement si Jacques le dit !", uses:"mouvement", bg:"", fg:"#0F7C7A"},
+  {id:"manque", st:"ecouter", t:"Qu'est-ce qui manque ?", d:"Regarde les images. Laquelle est partie ?", uses:"thème", bg:"", fg:"#2B5FD9"},
+  {id:"lettre", st:"ecrire", t:"La lettre manquante", d:"Trouve la lettre qui manque dans le mot.", uses:"thème", bg:"", fg:"#B3122A"},
+  {id:"enregistre", st:"parler", t:"Enregistre-toi", d:"Dis le mot au micro. Écoute ta voix.", uses:"thème · micro", bg:"", fg:"#1E7A4C"},
+  {id:"vraifaux", st:"ecouter", t:"Vrai ou faux", d:"Écoute. C'est le bon mot pour l'image ?", uses:"thème", bg:"", fg:"#1E7A4C"},
+  {id:"dessine", st:"ecouter", t:"Écoute et dessine", d:"Écoute la consigne et dessine-la.", uses:"couleurs", bg:"", fg:"#B85A00"},
+  {id:"bingo", st:"ecouter", t:"Bingo", d:"Écoute les mots. Trois en ligne, c'est gagné !", uses:"thème", bg:"", fg:"#7A4CC2"},
+  {id:"tourne", st:"parler", t:"Tourne et dis", d:"Fais tourner la roue. Dis le mot.", uses:"thème", bg:"", fg:"#B3122A"},
+  {id:"des", st:"parler", t:"Les dés de conversation", d:"Lance le dé. Pose la question à un ami.", uses:"avec un ami", bg:"", fg:"#2B5FD9"},
+  {id:"magasin", st:"parler", t:"Au magasin", d:"Demande des articles. « Je voudrais… »", uses:"jeu de rôle", bg:"", fg:"#0F6F80"},
+  {id:"histoires", st:"lire", t:"Mini-histoires", d:"Lis une petite histoire avec la voix.", uses:"lecture", bg:"", fg:"#9A6B00"},
+  {id:"cherche", st:"lire", t:"Cherche le mot", d:"Trouve les mots cachés. Une nouvelle grille à chaque fois !", uses:"thème", bg:"", fg:"#C2410C"},
+  {id:"pendu", st:"ecrire", t:"Devine le mot", d:"Trouve les lettres avant que la fleur perde ses pétales.", uses:"thème", bg:"", fg:"#6A2BC2"}
+];
+const STRANDS = [
+  {id:"ecouter", t:"J'écoute", en:"Listening", e:"👂"},
+  {id:"parler", t:"Je parle", en:"Speaking", e:"🗣️"},
+  {id:"lire", t:"Je lis", en:"Reading", e:"📖"},
+  {id:"ecrire", t:"J'écris", en:"Writing", e:"✏️"}
 ];
 
 /* ------------------------------------------------------------------ chrome: theme chips + settings */
@@ -579,10 +729,11 @@ function home() {
   view.innerHTML =
     '<div class="hello"><h1>Choisis une activité</h1>' +
     '<p>Thème choisi : <span class="now">' + esc(theme().name) + "</span>. Change le thème en haut, quand tu veux.</p></div>" +
-    '<div class="tiles">' + ACTS.map(a =>
+    STRANDS.map(g => '<section aria-labelledby="st-' + g.id + '"><div class="strand"><span class="sic" aria-hidden="true">' + g.e + '</span><div><h2 id="st-' + g.id + '">' + g.t + "</h2><small>" + g.en + "</small></div></div>" +
+    '<div class="tiles">' + ACTS.filter(a => a.st === g.id).map(a =>
       '<a class="tile" href="#' + a.id + '"><span class="ic" style="background:color-mix(in srgb, ' + a.fg + ' 16%, var(--card));color:' + a.fg + '"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">' + IC[a.id] + "</svg></span>" +
       "<span><h3>" + a.t + "</h3><p>" + a.d + '</p><span class="uses">' + a.uses + "</span></span></a>"
-    ).join("") + "</div>" +
+    ).join("") + "</div></section>").join("") +
     '<section class="videos" id="videos-sec" aria-labelledby="vid-h">' +
       '<div class="vid-top"><span class="vid-badge" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="currentColor"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></span>' +
       '<div><h2 id="vid-h">Mes vidéos</h2><p>Bouge, danse et parle en français ! Des vidéos à faire en classe, debout et en mouvement.</p></div></div>' +
@@ -592,9 +743,10 @@ function home() {
     '</section>' +
     '<details class="teacher"><summary>For teachers and families</summary><div class="cols">' +
       "<div><h4>Who it's for</h4><p>Beginner Grade 4–5 Core French learners who need extra repetition, picture support, audio, and low-pressure practice. There are no timers, scores or lives. Wrong answers get a gentle hint and another try.</p></div>" +
+      "<div><h4>Strands</h4><p>Activities are grouped by the four strands of Ontario Core French: <b>J'écoute</b> (Listening), <b>Je parle</b> (Speaking), <b>Je lis</b> (Reading) and <b>J'écris</b> (Writing). Most activities practise more than one strand; each one sits under its main focus.</p></div>" +
       "<div><h4>Themes</h4><p>" + THEMES.map(t => esc(t.name)).join(" · ") + ". These are common beginner Core French topics. Check them against your own long-range plans; this site doesn't claim to cover specific curriculum expectations.</p></div>" +
       "<div><h4>Audio</h4><p>Words are read by the device's French voice (Canadian French when available). It works best in Chrome or Edge. If you hear English, add a French voice in the computer's language settings. <b>Réglages → Voix lente</b> slows it down.</p></div>" +
-      "<div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li><li><b>Bâtis la phrase</b> has no wrong answers: students choose what they want to say (<i>Je suis fatigué</i>, <i>J'ai besoin d'une pause</i>), so it doubles as a communication board</li><li><b>Enregistre-toi</b> needs microphone permission. Recordings stay in the browser and are deleted when the student leaves the activity; nothing is uploaded.</li><li><b>le masculin / la féminin</b> switches every word that has a feminine form: colours (vert → verte), animals (le lapin → la lapine), family (le père → la mère), un → une. Nouns with a fixed gender (le crayon, la pomme) stay as they are. <i>Chat</i> and <i>chien</i> are left in the masculine on purpose, since <i>chatte</i> and <i>chienne</i> can draw giggles at this age.</li></ul></div>" +
+      "<div><h4>Supports</h4><ul><li>Andika, a typeface designed for new readers</li><li>Texte plus grand for bigger type</li><li>Mode calme turns off motion</li><li>Everything works by tapping, so no drag-and-drop is needed</li><li><b>Bâtis la phrase</b> has no wrong answers: students choose what they want to say (<i>Je suis fatigué</i>, <i>J'ai besoin d'une pause</i>), so it doubles as a communication board</li><li><b>Devine le mot</b> is hangman with a flower that loses a petal for each wrong letter. Plain letters match accented ones (e finds é, è and ê), and the article is shown for free.</li><li><b>Cherche le mot</b> builds a new grid every time. Words go across or down only.</li><li><b>Bingo</b> and <b>Tourne et dis</b> work well on a projector with the whole class.</li><li><b>Les dés de conversation</b> and <b>Au magasin</b> are partner activities: students take turns asking and answering.</li><li><b>Écoute et dessine</b>, <b>Les dés</b>, <b>Au magasin</b> and <b>Mini-histoires</b> use their own vocabulary, not the chosen theme.</li><li><b>Enregistre-toi</b> needs microphone permission. Recordings stay in the browser and are deleted when the student leaves the activity; nothing is uploaded.</li><li><b>le masculin / la féminin</b> switches every word that has a feminine form: colours (vert → verte), animals (le lapin → la lapine), family (le père → la mère), un → une. Nouns with a fixed gender (le crayon, la pomme) stay as they are. <i>Chat</i> and <i>chien</i> are left in the masculine on purpose, since <i>chatte</i> and <i>chienne</i> can draw giggles at this age.</li></ul></div>" +
     "</div></details>";
 }
 
@@ -1183,11 +1335,445 @@ function enregistre() {
   draw();
 }
 
-const VIEWS = { ecoute, lis, trouve, trace, colorie, trie, points, associe, memoire, phrase, jacques, manque, lettre, enregistre };
+/* ------------------------------------------------------------------ shared helpers for the new activities */
+const ART_RE = /^(le |la |les |l'|l’|un |une |des )/i;
+const bare = s => s.replace(ART_RE, "");
+const keyOf = ch => { const c = ch.toLowerCase(); return c === "œ" ? "o" : c === "æ" ? "a" : plain(c); };
+const upLetters = s => [...s].filter(ch => /\p{L}/u.test(ch)).map(ch => { const c = ch.toLowerCase(); return c === "œ" ? "OE" : c === "æ" ? "AE" : plain(c).toUpperCase(); }).join("");
+const SEQ = {id: 0};
+/* read several lines one after another; onLine(k) fires as each line starts */
+function speakList(lines, onLine, done) {
+  const my = ++SEQ.id;
+  if (!hasSpeech) { if (done) done(); return; }
+  try { speechSynthesis.cancel(); } catch (e) {}
+  clearTimeout(speak._t);
+  let i = 0;
+  const go = () => {
+    if (my !== SEQ.id) return;
+    if (i >= lines.length) { if (done) done(); return; }
+    if (onLine) onLine(i);
+    try {
+      const u = new SpeechSynthesisUtterance(lines[i]);
+      u.lang = VOICE ? VOICE.lang : "fr-CA"; if (VOICE) u.voice = VOICE;
+      u.rate = S.slow ? 0.55 : 0.9;
+      u.onend = u.onerror = () => { i++; setTimeout(go, 250); };
+      speechSynthesis.speak(u);
+    } catch (e) { if (done) done(); }
+  };
+  speak._t = setTimeout(go, 200);
+}
+const dollars = n => (n === 1 ? "un dollar" : NUMS[n] + " dollars");
+
+/* --- 15. Devine le mot (hangman with a flower) ---------------------------- */
+const PETALS = 7;
+function flowerSVG() {
+  let p = "";
+  for (let k = 0; k < PETALS; k++) {
+    const a = k * 360 / PETALS;
+    p += '<g class="pet" data-k="' + k + '"><ellipse cx="80" cy="42" rx="13" ry="23" transform="rotate(' + a + ' 80 68)" fill="#FF8FC7" stroke="#C2417A" stroke-width="2"/></g>';
+  }
+  return '<svg class="flower" viewBox="0 0 160 190" aria-hidden="true">' +
+    '<path d="M80 92 C78 120 84 145 80 186" fill="none" stroke="#2D8C4E" stroke-width="6" stroke-linecap="round"/>' +
+    '<path d="M80 150 C60 136 46 140 40 150 C54 160 68 158 80 150 Z M81 130 C100 116 114 120 120 130 C106 140 92 138 81 130 Z" fill="#3DAA61"/>' +
+    p + '<circle cx="80" cy="68" r="15" fill="#FFD23F" stroke="#B8860B" stroke-width="2"/></svg>';
+}
+function pendu() {
+  const act = shell("pendu", "Regarde l'image. Devine le mot lettre par lettre. Chaque erreur fait tomber un pétale de la fleur. Touche 🔊 pour un indice.");
+  const ok = theme().words.filter(w => { const n = [...bare(FR(w))].filter(ch => /\p{L}/u.test(ch)).length; return n >= 2 && n <= 14; });
+  let order = shuffle(ok.length ? ok : theme().words), i = 0;
+  function draw() {
+    const w = order[i], full = FR(w), word = bare(full);
+    const need = new Set([...word].filter(ch => /\p{L}/u.test(ch)).map(keyOf));
+    const got = new Set(); let miss = 0, over = false;
+    act.innerHTML =
+      '<div class="flash"><div class="pendu-top"><div class="big">' + pic(w) + "</div>" + flowerSVG() + "</div>" +
+      '<div class="hword word" id="hw" aria-live="polite"></div>' +
+      '<div class="btns"><button class="btn" id="play">🔊 Indice</button></div>' +
+      '<div class="kbd" id="kbd">' + ALPHA.split("").map(c => '<button class="key" data-c="' + c + '">' + c + "</button>").join("") + "</div>" +
+      '<div class="feedback" id="fb" aria-live="polite"></div>' +
+      '<div class="btns"><span class="counter" style="align-self:center">' + (i + 1) + " / " + order.length + '</span><button class="btn" id="next">Mot suivant →</button></div></div>';
+    const fb = $("#fb", act), hw = $("#hw", act);
+    const artTxt = ART_RE.test(full) ? full.match(ART_RE)[0].trim() : "";
+    function paint(reveal) {
+      hw.innerHTML = (artTxt ? '<span class="hart">' + esc(artTxt) + "</span>" : "") + word.split(" ").map(part => '<span class="hgrp">' + [...part].map(ch => {
+        if (!/\p{L}/u.test(ch)) return '<span class="hch sym">' + esc(ch) + "</span>";
+        const show = got.has(keyOf(ch));
+        return '<span class="hch' + (show ? " in" : reveal ? " shown" : "") + '">' + (show || reveal ? esc(ch) : "&nbsp;") + "</span>";
+      }).join("") + "</span>").join('<span class="hsp"></span>');
+    }
+    paint(false);
+    const finish = (won) => {
+      over = true; $$(".key", act).forEach(k => k.disabled = true);
+      if (won) { fb.className = "feedback ok"; fb.innerHTML = praise() + " <span class='word'>" + esc(full) + "</span>"; flash(hw, "pop"); }
+      else { paint(true); fb.className = "feedback try"; fb.innerHTML = "Voici le mot : <span class='word'>" + esc(full) + "</span>. On essaie un autre ?"; }
+      speak(full);
+    };
+    $("#play", act).onclick = () => speak(full);
+    $$(".key", act).forEach(b => b.onclick = () => {
+      if (over) return; const c = b.dataset.c; b.disabled = true;
+      if (need.has(c)) {
+        got.add(c); b.classList.add("good"); paint(false);
+        fb.className = "feedback"; fb.textContent = "";
+        if ([...need].every(x => got.has(x))) finish(true);
+      } else {
+        b.classList.add("nope"); flash(b, "shake");
+        const pet = $('.pet[data-k="' + miss + '"]', act); if (pet) pet.classList.add("fall");
+        miss++;
+        if (miss >= PETALS) finish(false);
+        else { fb.className = "feedback try"; fb.textContent = "Pas dans ce mot. Essaie encore !"; }
+      }
+    });
+    $("#next", act).onclick = () => { i++; if (i >= order.length) { order = shuffle(order); i = 0; } draw(); };
+  }
+  draw();
+}
+
+/* --- 16. Cherche le mot (word search, new grid every time) ---------------- */
+const WS_COLORS = ["#FFD23F", "#7FD8BE", "#9EC1FF", "#FFB4A2", "#D7B8FF", "#B9F18C", "#FFC6E5", "#9FE7F5"];
+function wsTerm(w) {
+  const full = FR(w), b = bare(full).replace(/[…!?.]/g, "").trim();
+  const joined = upLetters(b);
+  if (joined.length >= 3 && joined.length <= 10) return {term: joined, bold: b};
+  const parts = b.split(/[\s'’-]+/).filter(p => upLetters(p).length >= 3 && upLetters(p).length <= 10);
+  if (!parts.length) return null;
+  const best = parts.sort((x, y) => upLetters(y).length - upLetters(x).length)[0];
+  return {term: upLetters(best), bold: best};
+}
+function buildGrid(terms, n) {
+  const g = Array.from({length: n}, () => Array(n).fill(""));
+  const placed = [];
+  for (const t of terms) {
+    let done = false;
+    for (let tries = 0; tries < 300 && !done; tries++) {
+      const dir = Math.random() < 0.5 ? [0, 1] : [1, 0];
+      const r0 = Math.floor(Math.random() * (n - dir[0] * (t.term.length - 1)));
+      const c0 = Math.floor(Math.random() * (n - dir[1] * (t.term.length - 1)));
+      let fits = true;
+      for (let k = 0; k < t.term.length; k++) { const ch = g[r0 + dir[0] * k][c0 + dir[1] * k]; if (ch && ch !== t.term[k]) { fits = false; break; } }
+      if (!fits) continue;
+      const cells = [];
+      for (let k = 0; k < t.term.length; k++) { g[r0 + dir[0] * k][c0 + dir[1] * k] = t.term[k]; cells.push((r0 + dir[0] * k) * n + c0 + dir[1] * k); }
+      placed.push(Object.assign({cells}, t)); done = true;
+    }
+  }
+  const AZ = "ABCDEFGHIJKLMNOPRSTUV"; // common letters only, so fillers look like French
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (!g[r][c]) g[r][c] = AZ[Math.floor(Math.random() * AZ.length)];
+  return {g, placed};
+}
+function cherche() {
+  const act = shell("cherche", "Trouve les mots cachés. Ils vont → ou ↓. Touche la première lettre, puis la dernière lettre. Chaque grille est nouvelle !");
+  function draw() {
+    const seen = new Set(), terms = [];
+    for (const w of shuffle(theme().words)) {
+      const t = wsTerm(w); if (!t || seen.has(t.term)) continue;
+      seen.add(t.term); terms.push(Object.assign({w}, t)); if (terms.length >= 6) break;
+    }
+    const n = Math.max(8, Math.min(10, Math.max(...terms.map(t => t.term.length)) + 1));
+    const {g, placed} = buildGrid(terms.sort((a, b) => b.term.length - a.term.length), n);
+    let first = null, found = 0;
+    act.innerHTML =
+      '<div class="ws-wrap"><div class="ws" id="ws" style="grid-template-columns:repeat(' + n + ',minmax(0,1fr))">' +
+        g.flat().map((ch, k) => '<button class="wc" data-k="' + k + '" aria-label="' + ch + '">' + ch + "</button>").join("") + "</div>" +
+      '<div class="wlist">' + placed.map((t, j) => {
+        const full = FR(t.w), at = full.indexOf(t.bold);
+        const label = at >= 0 ? esc(full.slice(0, at)) + "<b>" + esc(t.bold) + "</b>" + esc(full.slice(at + t.bold.length)) : esc(full);
+        return '<button class="wchip" data-j="' + j + '"><span class="mini">' + pic(t.w) + "</span><span>" + label + "</span></button>";
+      }).join("") + "</div></div>" +
+      '<div class="feedback" id="fb" aria-live="polite"></div>' +
+      '<div class="btns"><button class="btn main" id="new">🔀 Nouvelle grille</button></div>' +
+      '<div class="bravo" id="bravo">' + praise() + " Tu as trouvé tous les mots !</div>";
+    const fb = $("#fb", act), cells = $$(".wc", act);
+    $$(".wchip", act).forEach(b => b.onclick = () => speak(FR(placed[+b.dataset.j].w)));
+    cells.forEach(b => b.onclick = () => {
+      const k = +b.dataset.k;
+      if (first === null) { first = k; b.classList.add("sel"); return; }
+      if (first === k) { b.classList.remove("sel"); first = null; return; }
+      const a = first; first = null; cells[a].classList.remove("sel");
+      const hit = placed.find(t => !t.done && ((t.cells[0] === a && t.cells[t.cells.length - 1] === k) || (t.cells[0] === k && t.cells[t.cells.length - 1] === a)));
+      if (hit) {
+        hit.done = true; found++;
+        const col = WS_COLORS[placed.indexOf(hit) % WS_COLORS.length];
+        hit.cells.forEach(c => { cells[c].classList.add("got"); cells[c].style.background = col; });
+        const chip = $('.wchip[data-j="' + placed.indexOf(hit) + '"]', act); chip.classList.add("found"); flash(chip, "pop");
+        fb.className = "feedback ok"; fb.innerHTML = praise() + " <span class='word'>" + esc(FR(hit.w)) + "</span>"; speak(FR(hit.w));
+        if (found === placed.length) $("#bravo", act).classList.add("show");
+      } else {
+        flash(cells[k], "shake"); fb.className = "feedback try"; fb.textContent = "Essaie encore ! Touche la première et la dernière lettre.";
+      }
+    });
+    $("#new", act).onclick = draw;
+  }
+  draw();
+}
+
+/* --- 17. Vrai ou faux ------------------------------------------------------ */
+function vraifaux() {
+  const act = shell("vraifaux", "Regarde l'image. Écoute le mot. C'est le bon mot ? Touche ✔ vrai ou ✘ faux.");
+  const words = theme().words; let round = 0;
+  function draw() {
+    const w = words[Math.floor(Math.random() * words.length)];
+    const same = Math.random() < 0.5;
+    const said = same ? w : pickN(words.filter(x => x !== w && FR(x) !== FR(w)), 1)[0] || w;
+    const truth = said === w;
+    act.innerHTML =
+      '<div class="flash"><div class="big">' + pic(w) + "</div>" +
+      '<div class="btns"><button class="btn" id="play">🔊 Écoute</button></div>' +
+      '<div class="vf"><button class="vfb vrai" data-v="1">✔<span>vrai</span></button><button class="vfb faux" data-v="0">✘<span>faux</span></button></div>' +
+      '<div class="feedback" id="fb" aria-live="polite"></div><div class="btns"><button class="btn" id="next" hidden>Encore un →</button></div></div>';
+    const fb = $("#fb", act);
+    $("#play", act).onclick = () => speak(FR(said));
+    $$(".vfb", act).forEach(b => b.onclick = () => {
+      if ((b.dataset.v === "1") === truth) {
+        b.classList.add("good"); flash(b, "pop"); $$(".vfb", act).forEach(x => x.disabled = true);
+        fb.className = "feedback ok";
+        fb.innerHTML = truth ? praise() + " C'est vrai : <span class='word'>" + esc(FR(w)) + "</span>" : praise() + " C'est faux. C'est <span class='word'>" + esc(FR(w)) + "</span>";
+        speak(FR(w)); $("#next", act).hidden = false;
+      } else { b.disabled = true; b.classList.add("nope"); flash(b, "shake"); fb.className = "feedback try"; fb.textContent = "Écoute encore…"; setTimeout(() => speak(FR(said)), 400); }
+    });
+    $("#next", act).onclick = () => { round++; draw(); };
+    setTimeout(() => speak(FR(said)), round > 0 ? 0 : 300);
+  }
+  draw();
+}
+
+/* --- 18. Écoute et dessine ------------------------------------------------- */
+const DRAW_THINGS = [
+  {fr:"pomme", g:"f", e:"🍎"}, {fr:"chat", g:"m", e:"🐱"}, {fr:"maison", g:"f", e:"🏠"}, {fr:"soleil", g:"m", e:"☀️"},
+  {fr:"fleur", g:"f", e:"🌼"}, {fr:"ballon", g:"m", e:"🎈"}, {fr:"poisson", g:"m", e:"🐟"}, {fr:"voiture", g:"f", e:"🚗"},
+  {fr:"arbre", g:"m", e:"🌳"}, {fr:"chapeau", g:"m", e:"🎩"}, {fr:"étoile", g:"f", e:"⭐"}, {fr:"cœur", g:"m", e:"❤️"},
+  {fr:"serpent", g:"m", e:"🐍"}, {fr:"tortue", g:"f", e:"🐢"}
+];
+const DRAW_COLS = ["rouge", "bleu", "jaune", "vert", "orange", "violet", "rose", "brun", "noir"];
+function dessine() {
+  const act = shell("dessine", "Écoute la consigne. Dessine ce que tu entends, avec la bonne couleur. Il n'y a pas de mauvaise réponse !", false);
+  let pen = "noir", strokes = [], cur = null, task = null;
+  act.innerHTML =
+    '<div class="flash"><div class="btns"><button class="btn main" id="play">🔊 Écoute la consigne</button><button class="btn" id="show">👀 Voir la phrase</button></div>' +
+    '<div class="dmodel" id="model" hidden></div>' +
+    '<div class="pal" id="pal">' + DRAW_COLS.map(c => '<button class="pcol" data-c="' + c + '" aria-pressed="' + (c === pen) + '"><span class="dot" style="background:' + COLORS[c] + '"></span>' + c + "</button>").join("") + "</div>" +
+    '<div class="drawpad" id="dw"><canvas id="dcv" aria-label="Zone pour dessiner"></canvas></div>' +
+    '<div class="btns"><button class="btn" id="clear">Efface</button><button class="btn main" id="next">Nouvelle consigne →</button></div></div>';
+  const cv = $("#dcv", act), ctx = cv.getContext("2d"), wrap = $("#dw", act);
+  const sentence = () => "Dessine " + (task.t.g === "f" ? "une " : "un ") + task.t.fr + " " + (task.t.g === "f" ? (FEM_COL[task.c] || task.c) : task.c) + ".";
+  function size() {
+    const r = window.devicePixelRatio || 1, w = wrap.clientWidth, h = Math.max(240, Math.min(420, w * 0.6));
+    cv.width = Math.round(w * r); cv.height = Math.round(h * r); cv.style.height = h + "px";
+    ctx.setTransform(r, 0, 0, r, 0, 0); redraw();
+  }
+  function redraw() {
+    ctx.clearRect(0, 0, cv.width, cv.height); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 9;
+    strokes.forEach(s => { ctx.strokeStyle = COLORS[s.c]; ctx.beginPath(); s.p.forEach((p, k) => k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); if (s.p.length === 1) ctx.lineTo(s.p[0][0] + 0.1, s.p[0][1]); ctx.stroke(); });
+  }
+  const pt = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); cur = {c: pen, p: [pt(e)]}; strokes.push(cur); redraw(); });
+  cv.addEventListener("pointermove", e => { if (!cur) return; cur.p.push(pt(e)); redraw(); });
+  const end = () => { cur = null; }; cv.addEventListener("pointerup", end); cv.addEventListener("pointercancel", end);
+  $$(".pcol", act).forEach(b => b.onclick = () => { pen = b.dataset.c; $$(".pcol", act).forEach(x => x.setAttribute("aria-pressed", x === b)); speak(b.dataset.c); });
+  function next() {
+    let t; do { t = {t: DRAW_THINGS[Math.floor(Math.random() * DRAW_THINGS.length)], c: DRAW_COLS[Math.floor(Math.random() * DRAW_COLS.length)]}; } while (task && t.t === task.t);
+    task = t; strokes = []; redraw(); $("#model", act).hidden = true; speak(sentence());
+  }
+  $("#play", act).onclick = () => speak(sentence());
+  $("#show", act).onclick = () => {
+    const m = $("#model", act); m.hidden = false;
+    m.innerHTML = '<span class="emoji" aria-hidden="true">' + task.t.e + '</span><span class="dot" style="background:' + COLORS[task.c] + '"></span><span class="word">' + esc(sentence()) + "</span>";
+    speak(sentence());
+  };
+  $("#clear", act).onclick = () => { strokes = []; redraw(); };
+  $("#next", act).onclick = next;
+  size(); window.addEventListener("resize", size, {once: true});
+  task = {t: DRAW_THINGS[Math.floor(Math.random() * DRAW_THINGS.length)], c: DRAW_COLS[Math.floor(Math.random() * DRAW_COLS.length)]};
+}
+
+/* --- 19. Bingo ------------------------------------------------------------- */
+function bingo() {
+  const act = shell("bingo", "Écoute le mot. Si tu as l'image sur ta carte, touche-la. Trois images en ligne → Bingo !");
+  function draw() {
+    const words = theme().words, side = words.length >= 9 ? 3 : 2;
+    const card = pickN(words, side * side);
+    let calls = shuffle(words), called = new Set(), ci = -1, done = false;
+    const marked = new Set();
+    act.innerHTML =
+      '<div class="flash"><div class="btns"><button class="btn main" id="call">📣 Appelle un mot</button><button class="btn" id="again" disabled>🔁 Réécoute</button><span class="counter" id="cnt" style="align-self:center"></span></div>' +
+      '<div class="bingo" style="grid-template-columns:repeat(' + side + ',minmax(0,1fr))">' + card.map((w, k) => '<button class="bcell" data-k="' + k + '"><span class="p">' + pic(w) + '</span><span class="w"></span></button>').join("") + "</div>" +
+      '<div class="feedback" id="fb" aria-live="polite"></div>' +
+      '<div class="btns"><button class="btn" id="new">🔀 Nouvelle carte</button></div>' +
+      '<div class="bravo" id="bravo">Bingo ! 🎉</div></div>';
+    const fb = $("#fb", act);
+    const lines = [];
+    for (let r = 0; r < side; r++) { lines.push([...Array(side)].map((_, c) => r * side + c)); lines.push([...Array(side)].map((_, c) => c * side + r)); }
+    lines.push([...Array(side)].map((_, c) => c * side + c)); lines.push([...Array(side)].map((_, c) => c * side + side - 1 - c));
+    $("#call", act).onclick = () => {
+      if (ci + 1 >= calls.length) { fb.className = "feedback"; fb.textContent = "Tous les mots sont appelés. Nouvelle carte ?"; return; }
+      ci++; called.add(calls[ci]); speak(FR(calls[ci]));
+      $("#again", act).disabled = false; $("#cnt", act).textContent = "Mot " + (ci + 1) + " / " + calls.length;
+      fb.className = "feedback"; fb.textContent = "";
+    };
+    $("#again", act).onclick = () => { if (ci >= 0) speak(FR(calls[ci])); };
+    $$(".bcell", act).forEach(b => b.onclick = () => {
+      const k = +b.dataset.k, w = card[k];
+      if (marked.has(k)) { speak(FR(w)); return; }
+      if (called.has(w)) {
+        marked.add(k); b.classList.add("on"); $(".w", b).textContent = FR(w); flash(b, "pop"); speak(FR(w));
+        if (!done && lines.some(L => L.every(x => marked.has(x)))) { done = true; $("#bravo", act).classList.add("show"); fb.className = "feedback ok"; fb.textContent = praise(); setTimeout(() => speak("Bingo !"), 900); }
+      } else { flash(b, "shake"); fb.className = "feedback try"; fb.textContent = ci < 0 ? "Touche d'abord « Appelle un mot »." : "Pas encore ! Écoute bien."; }
+    });
+    $("#new", act).onclick = draw;
+  }
+  draw();
+}
+
+/* --- 20. Tourne et dis ----------------------------------------------------- */
+const WHEEL_BG = ["#FFE08A", "#BDE7FF", "#FFC9D6", "#C9F2C7", "#E3D1FF", "#FFD8B0", "#B8F0EA", "#F6E1C3"];
+function tourne() {
+  const act = shell("tourne", "Fais tourner la roue. Dis le mot de l'image. Puis touche « Vérifie » pour écouter.");
+  const items = pickN(theme().words, 8), n = items.length, seg = 360 / n;
+  let rot = 0, cur = null, busy = false;
+  const grad = items.map((_, k) => WHEEL_BG[k % WHEEL_BG.length] + " " + (k * seg) + "deg " + ((k + 1) * seg) + "deg").join(",");
+  act.innerHTML =
+    '<div class="flash"><div class="wheelbox"><div class="pointer" aria-hidden="true"></div>' +
+      '<div class="wheel" id="wheel" style="background:conic-gradient(' + grad + ')">' +
+        items.map((w, k) => '<span class="wseg" style="transform:translate(-50%,-50%) rotate(' + (k * seg + seg / 2) + 'deg) translateY(-34cqw) rotate(' + -(k * seg + seg / 2) + 'deg)">' + pic(w) + "</span>").join("") +
+      '</div><div class="hub" aria-hidden="true"></div></div>' +
+    '<div class="btns"><button class="btn main" id="spin">🎡 Tourne !</button></div>' +
+    '<div class="tland" id="land" hidden></div>' +
+    '<div class="feedback" id="fb" aria-live="polite"></div></div>';
+  const wheel = $("#wheel", act), land = $("#land", act), fb = $("#fb", act);
+  $("#spin", act).onclick = () => {
+    if (busy) return; busy = true; land.hidden = true; fb.textContent = "";
+    let k; do { k = Math.floor(Math.random() * n); } while (n > 1 && k === cur);
+    cur = k;
+    const center = k * seg + seg / 2;
+    rot += 360 * 4 + (((-center - rot) % 360) + 360) % 360;
+    wheel.style.transform = "rotate(" + rot + "deg)";
+    const calm = S.calm || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setTimeout(() => {
+      busy = false; const w = items[k];
+      land.hidden = false;
+      land.innerHTML = '<div class="big">' + pic(w) + '</div><p class="say">Dis le mot !</p><div class="btns"><button class="btn main" id="check">🔊 Vérifie</button></div><div class="word tword" id="tw" hidden>' + esc(FR(w)) + "</div>";
+      $("#check", land).onclick = () => { const t = $("#tw", land); t.hidden = false; flash(t, "pop"); speak(FR(w)); fb.className = "feedback ok"; fb.textContent = "Tu l'as dit ? " + praise(); };
+      land.scrollIntoView({block: "nearest", behavior: calm ? "auto" : "smooth"});
+    }, calm ? 50 : 3100);
+  };
+}
+
+/* --- 21. Les dés de conversation ------------------------------------------ */
+const DICE_Q = [
+  {q:"Comment t'appelles-tu ?", e:"📛", frame:"Je m'appelle ___.", opts:[], ex:"Je m'appelle Jacques."},
+  {q:"Quel âge as-tu ?", e:"🎂", frame:"J'ai ___ ans.", opts:[{t:"neuf", p:'<span class="numeral">9</span>'}, {t:"dix", p:'<span class="numeral">10</span>'}, {t:"onze", p:'<span class="numeral">11</span>'}]},
+  {q:"Comment ça va ?", e:"🙂", frame:"Ça va ___.", opts:[{t:"bien", p:"😀"}, {t:"mal", p:"😞"}, {t:"comme ci, comme ça", p:"😐"}]},
+  {q:"Quelle est ta couleur préférée ?", e:"🎨", frame:"Ma couleur préférée, c'est le ___.", opts:["rouge","bleu","vert","jaune","violet","rose"].map(c => ({t:c, p:'<span class="swatch" style="background:' + COLORS[c] + '"></span>'}))},
+  {q:"Quel est ton animal préféré ?", e:"🐾", frame:"Mon animal préféré, c'est ___.", opts:[{t:"le chat", p:"🐱"}, {t:"le chien", p:"🐶"}, {t:"le lapin", p:"🐰"}, {t:"le cheval", p:"🐴"}, {t:"l'oiseau", p:"🐦"}]},
+  {q:"Quel temps fait-il ?", e:"🌤️", frame:"___.", opts:[{t:"Il fait soleil", p:"☀️"}, {t:"Il pleut", p:"🌧️"}, {t:"Il neige", p:"❄️"}, {t:"Il fait froid", p:"🥶"}]}
+];
+const PIPS = {1:[4], 2:[0,8], 3:[0,4,8], 4:[0,2,6,8], 5:[0,2,4,6,8], 6:[0,2,3,5,6,8]};
+const dieFace = n => '<span class="die" aria-label="' + n + '">' + [...Array(9)].map((_, k) => '<i' + (PIPS[n].includes(k) ? ' class="on"' : "") + "></i>").join("") + "</span>";
+function des() {
+  const act = shell("des", "Lance le dé. Pose la question à un ami. Ton ami répond avec la phrase. Puis changez de rôle !", false);
+  let last = 0;
+  act.innerHTML =
+    '<div class="flash"><div id="die">' + dieFace(1) + '</div><div class="btns"><button class="btn main" id="roll">🎲 Lance le dé</button></div>' +
+    '<div class="qcard" id="qc" hidden></div>' +
+    '<ol class="dlegend">' + DICE_Q.map((d, k) => '<li><span class="dmini">' + dieFace(k + 1) + "</span>" + esc(d.q) + "</li>").join("") + "</ol></div>";
+  const qc = $("#qc", act);
+  function show(n) {
+    const d = DICE_Q[n - 1];
+    qc.hidden = false;
+    qc.innerHTML =
+      '<div class="qline"><span class="emoji" aria-hidden="true">' + d.e + '</span><span class="word">' + esc(d.q) + '</span><button class="btn" id="pq">🔊</button></div>' +
+      '<div class="aline"><span class="word" id="ans">' + esc(d.frame).replace("___", '<span class="blank">___</span>') + '</span><button class="btn" id="pa">🔊</button></div>' +
+      (d.opts.length ? '<div class="opts">' + d.opts.map((o, j) => '<button class="opt" data-j="' + j + '"><span class="p">' + o.p + "</span>" + esc(o.t) + "</button>").join("") + "</div>" : '<p class="how">Dis ton nom ! Exemple : <span class="word">' + esc(d.ex) + "</span></p>");
+    let pickd = null;
+    const full = () => pickd ? d.frame.replace("___", pickd) : (d.ex || d.frame.replace("___", d.opts[0].t));
+    $("#pq", qc).onclick = () => speak(d.q);
+    $("#pa", qc).onclick = () => speak(full());
+    $$(".opt", qc).forEach(b => b.onclick = () => {
+      pickd = d.opts[+b.dataset.j].t; $$(".opt", qc).forEach(x => x.setAttribute("aria-pressed", x === b));
+      const s = full(); $("#ans", qc).innerHTML = esc(s.charAt(0).toUpperCase() + s.slice(1)); speak(s);
+    });
+    speak(d.q);
+  }
+  $("#roll", act).onclick = () => {
+    let n; do { n = 1 + Math.floor(Math.random() * 6); } while (n === last);
+    last = n; const box = $("#die", act); box.innerHTML = dieFace(n); flash($(".die", box), "tumble"); show(n);
+  };
+}
+
+/* --- 22. Au magasin -------------------------------------------------------- */
+const SHOP = [
+  {fr:"une pomme", e:"🍎", p:1}, {fr:"une banane", e:"🍌", p:1}, {fr:"un biscuit", e:"🍪", p:1}, {fr:"un jus", e:"🧃", p:2},
+  {fr:"un sandwich", e:"🥪", p:4}, {fr:"une pizza", e:"🍕", p:5}, {fr:"un crayon", e:"✏️", p:1}, {fr:"un cahier", e:"📓", p:2},
+  {fr:"une balle", e:"⚽", p:3}, {fr:"une crème glacée", e:"🍦", p:3}, {fr:"un livre", e:"📕", p:6}, {fr:"une casquette", e:"🧢", p:8}
+];
+function magasin() {
+  const act = shell("magasin", "Tu es au magasin ! Touche un article pour le demander. Répète la phrase. Quand tu as fini, touche « C'est tout ».", false);
+  let basket = [];
+  function draw() {
+    const total = basket.reduce((s, x) => s + x.p, 0);
+    act.innerHTML =
+      '<div class="shop">' + SHOP.map((x, k) => '<button class="sitem" data-k="' + k + '"' + (basket.length >= 4 ? " disabled" : "") + '><span class="emoji" aria-hidden="true">' + x.e + '</span><span class="nm">' + esc(x.fr) + '</span><span class="price">' + x.p + " $</span></button>").join("") + "</div>" +
+      '<div class="talk" id="talk">' +
+        '<div class="bubble me"><span class="who" aria-hidden="true">🧒</span><span class="word" id="me">' + (basket.length ? "Je voudrais " + esc(basket[basket.length - 1].fr) + ", s'il vous plaît." : "Bonjour !") + '</span><button class="btn" id="pme">🔊</button></div>' +
+        '<div class="bubble them"><span class="who" aria-hidden="true">🧑‍💼</span><span class="word" id="them">' + (basket.length ? "Autre chose ?" : "Bonjour ! Qu'est-ce que tu veux ?") + '</span><button class="btn" id="pth">🔊</button></div></div>' +
+      '<div class="basket"><b>🧺 Mon panier :</b> ' + (basket.length ? basket.map(x => '<span class="bi">' + x.e + " " + esc(x.fr) + "</span>").join("") + ' <span class="tot">' + total + " $</span>" : '<span class="muted">vide</span>') + "</div>" +
+      '<div class="btns"><button class="btn main" id="done"' + (basket.length ? "" : " disabled") + '>C\'est tout, merci !</button><button class="btn" id="reset">Nouveau client</button></div>';
+    $("#pme", act).onclick = () => speak($("#me", act).textContent);
+    $("#pth", act).onclick = () => speak($("#them", act).textContent);
+    $$(".sitem", act).forEach(b => b.onclick = () => {
+      const x = SHOP[+b.dataset.k]; basket.push(x); draw();
+      speakList(["Je voudrais " + x.fr + ", s'il vous plaît.", "Autre chose ?"]);
+    });
+    $("#done", act).onclick = () => {
+      $("#me", act).textContent = "C'est tout, merci !";
+      $("#them", act).textContent = "Ça fait " + dollars(total) + ". Merci et bonne journée !";
+      flash($("#talk", act), "pop");
+      $$(".sitem", act).forEach(b => b.disabled = true); $("#done", act).disabled = true;
+      speakList(["C'est tout, merci !", "Ça fait " + dollars(total) + ". Merci et bonne journée !"]);
+    };
+    $("#reset", act).onclick = () => { basket = []; draw(); speak("Bonjour ! Qu'est-ce que tu veux ?"); };
+  }
+  draw();
+}
+
+/* --- 23. Mini-histoires ---------------------------------------------------- */
+const STORIES = [
+  {t:"Bonjour, Léo !", e:"🙋", lines:[["🙋","Bonjour ! Je m'appelle Léo."],["🎂","J'ai dix ans."],["😀","Aujourd'hui, ça va bien."],["🐶","J'ai un chien. Il s'appelle Max."],["👋","Au revoir !"]]},
+  {t:"Le chat de Mia", e:"🐱", lines:[["🐱","Mia a un petit chat."],["🐈‍⬛","Le chat est noir et blanc."],["🐟","Le chat aime le poisson."],["🛏️","Le chat dort sur le lit."],["❤️","Mia aime son chat."]]},
+  {t:"Quel temps fait-il ?", e:"🌤️", lines:[["☀️","Lundi, il fait soleil."],["🌧️","Mardi, il pleut."],["☂️","J'ai mon parapluie."],["❄️","Mercredi, il neige !"],["⛄","Je fais un bonhomme de neige."]]},
+  {t:"Le dîner", e:"🥪", lines:[["🍽️","C'est l'heure du dîner."],["🥪","J'ai un sandwich."],["🍎","J'ai une pomme rouge."],["🧃","Je bois du jus."],["😋","Miam ! C'est bon !"]]},
+  {t:"À l'école", e:"🏫", lines:[["🏫","Je vais à l'école."],["🚌","Je prends l'autobus."],["🧑‍🏫","Je dis bonjour à mon enseignante."],["📖","En classe, je lis un livre."],["⚽","À la récréation, je joue avec mes amis."]]},
+  {t:"L'Halloween", e:"🎃", lines:[["🎃","C'est l'Halloween !"],["👻","Je suis un fantôme."],["🧙‍♀️","Mon amie est une sorcière."],["🍬","Nous avons des bonbons."],["🌕","La lune est grande et jaune."]]}
+];
+function histoires() {
+  const act = shell("histoires", "Choisis une histoire. Touche « Lis l'histoire » pour écouter. Touche un mot pour l'entendre. Puis lis avec la voix !", false);
+  let si = Math.min(IDX.histoires || 0, STORIES.length - 1);
+  function draw() {
+    const st = STORIES[si]; IDX.histoires = si;
+    act.innerHTML =
+      '<div class="spick">' + STORIES.map((s, k) => '<button class="chip" data-k="' + k + '" aria-pressed="' + (k === si) + '"><span class="mini">' + s.e + "</span>" + esc(s.t) + "</button>").join("") + "</div>" +
+      '<h2 class="stitle">' + esc(st.t) + "</h2>" +
+      '<ol class="story">' + st.lines.map(([e, s], k) =>
+        '<li class="sline" data-k="' + k + '"><span class="emoji" aria-hidden="true">' + e + '</span><span class="stext">' +
+          s.split(" ").map(tk => '<button class="tw">' + esc(tk) + "</button>").join(" ") +
+        '</span><button class="btn sl" data-k="' + k + '" aria-label="Écoute la phrase ' + (k + 1) + '">🔊</button></li>').join("") + "</ol>" +
+      '<div class="btns"><button class="btn main" id="read">▶ Lis l\'histoire</button><button class="btn" id="nexts">Histoire suivante →</button></div>';
+    const rows = $$(".sline", act);
+    const mark = k => rows.forEach((r, j) => r.classList.toggle("now", j === k));
+    $$(".tw", act).forEach(b => b.onclick = () => { const t = b.textContent.replace(/[.,!?;:«»]/g, "").trim(); if (t) { flash(b, "pop"); speak(t); } });
+    $$(".sl", act).forEach(b => b.onclick = () => { const k = +b.dataset.k; mark(k); speakList([st.lines[k][1]], null, () => mark(-1)); });
+    $("#read", act).onclick = () => speakList(st.lines.map(l => l[1]), mark, () => mark(-1));
+    $("#nexts", act).onclick = () => { si = (si + 1) % STORIES.length; draw(); };
+    $$(".spick .chip", act).forEach(b => b.onclick = () => { si = +b.dataset.k; draw(); });
+  }
+  draw();
+}
+
+const VIEWS = { ecoute, lis, trouve, trace, colorie, trie, points, associe, memoire, phrase, jacques, manque, lettre, enregistre, pendu, cherche, vraifaux, dessine, bingo, tourne, des, magasin, histoires };
 function route(keep) {
   const id = (location.hash || "").slice(1);
   if (!keep) { IDX.ecoute = 0; IDX.trace = 0; }
   if (id !== "enregistre") stopMic();
+  SEQ.id++;
   if (hasSpeech) try { speechSynthesis.cancel(); } catch (e) {}
   (VIEWS[id] || home)();
   if (id === "videos") { const v = $("#videos-sec"); if (v) v.scrollIntoView({block: "start"}); }
