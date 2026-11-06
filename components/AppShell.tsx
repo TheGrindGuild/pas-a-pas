@@ -102,7 +102,6 @@ export default function AppShell() {
   useEffect(() => {
     activeAudio.current?.pause();
     activeAudio.current = null;
-    if (!activityId) return;
     if (activityId === "videos") {
       document.getElementById("videos-sec")?.scrollIntoView({ block: "start" });
     } else window.scrollTo(0, 0);
@@ -122,7 +121,7 @@ export default function AppShell() {
   };
 
   return (
-    <SidebarProvider defaultOpen>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar activityId={activityId} theme={theme} themes={THEMES} gender={gender} onThemeChange={changeTheme} />
       <SidebarInset>
         <Header

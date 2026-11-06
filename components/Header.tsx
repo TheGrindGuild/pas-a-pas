@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
 import ColorThemePicker from "./ColorThemePicker";
 import { speak } from "./activities/shared";
+import { SidebarTrigger } from "./ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,6 +47,7 @@ export default function Header({ big, slow, calm, voiceNote, onBigChange, onSlow
               <Button variant="secondary" className="settings-test" onClick={testVoice}>Tester la voix</Button>
             </DropdownMenuContent>
           </DropdownMenu>
+          <SidebarTrigger aria-label="Afficher ou masquer le menu" title="Afficher ou masquer le menu" className="iconbtn sidebar-menu-trigger" />
         </div>
       </div>
     </header>

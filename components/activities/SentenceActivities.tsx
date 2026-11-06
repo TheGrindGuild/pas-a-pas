@@ -102,11 +102,6 @@ const SENTENCES: Record<string, SentencePuzzle[]> = {
     { sentence: "Comment ça va ?", distractors: ["Quelle", "date", "rouge."] },
     { sentence: "Je m'appelle Alex.", distractors: ["Tu", "présent", "mange."] }
   ],
-  halloween: [
-    { sentence: "C'est l'Halloween !", distractors: ["Il", "est", "fantôme."] },
-    { sentence: "Le fantôme arrive.", distractors: ["La", "citrouille", "mange."] },
-    { sentence: "La citrouille est orange.", distractors: ["Le", "fantôme", "noir."] }
-  ],
   hiver: [
     { sentence: "Il neige en hiver.", distractors: ["Elle", "soleil", "chaud."] },
     { sentence: "Le bonhomme de neige est grand.", distractors: ["La", "glace", "petit."] },

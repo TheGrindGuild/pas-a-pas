@@ -22,6 +22,7 @@ import {
 } from "./activities/CommunicationActivities";
 import { ConstruisActivity } from "./activities/SentenceActivities";
 import { EcouteActivity, LisActivity, TrouveActivity } from "./activities/PracticeActivities";
+import HangmanActivity from "./activities/HangmanActivity";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 
@@ -40,6 +41,7 @@ const ACTIVITY_CARDS = [
   { id: "jacques", description: "Bouge seulement si Jacques le dit !", uses: "mouvement", icon: "🏃", color: "#E0F4F7", ink: "#0F7C7A" },
   { id: "manque", description: "Regarde les images. Laquelle est partie ?", uses: "thème", icon: "❔", color: "#E4EDFF", ink: "#2B5FD9" },
   { id: "lettre", description: "Trouve la lettre qui manque dans le mot.", uses: "thème", icon: "🔤", color: "#FFE5E8", ink: "#B3122A" },
+  { id: "pendu", description: "Devine le mot français, une lettre à la fois.", uses: "jeu de mots", icon: "🪢", color: "#F3E6FF", ink: "#6A2BC2" },
   { id: "enregistre", description: "Dis le mot au micro. Écoute ta voix.", uses: "thème · micro", icon: "🎙️", color: "#E2F5EA", ink: "#1E7A4C" }
 ];
 
@@ -117,6 +119,7 @@ export default function ActivityView({ activityId, theme, gender, slow, onGender
     case "jacques": activity = <JacquesActivity {...props} />; break;
     case "manque": activity = <ManqueActivity key={theme.id} {...props} />; break;
     case "lettre": activity = <LettreActivity key={`${theme.id}-${gender}`} {...props} />; break;
+    case "pendu": activity = <HangmanActivity />; break;
     case "enregistre": activity = <EnregistreActivity key={theme.id} {...props} />; break;
     default: activity = <Home theme={theme} />;
   }

@@ -80,11 +80,11 @@ const PRESET_THEMES: ColorTheme[] = [
     }
   },
   {
-    id: "halloween",
-    name: "l'Halloween",
+    id: "noel",
+    name: "Noël",
     colors: {
-      light: { paper: "#FFF8F0", card: "#FFFFFF", ink: "#3D1E00", teal: "#D97706" },
-      dark: { paper: "#3a1c04", card: "#1d1201", ink: "#FFE6C2", teal: "#FBBF24" }
+      light: { paper: "#FFF8F6", card: "#FFFFFF", ink: "#241416", teal: "#A61B29" },
+      dark: { paper: "#191013", card: "#241619", ink: "#F8E9E9", teal: "#FFB3B8" }
     }
   }
 ];
@@ -432,7 +432,8 @@ function applyTheme(theme: ColorTheme, mode: ColorMode, systemDark: boolean) {
   root.dataset.colorTheme = theme.id;
   const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
   if (favicon) {
-    favicon.href = `${BASE_PATH}/${theme.id === "halloween" ? "favicon-halloween.svg" : "favicon.svg"}`;
+    const icon = theme.id === "noel" ? "favicon-noel.svg" : "favicon.svg";
+    favicon.href = `${BASE_PATH}/${icon}`;
   }
   const isDark = mode === "dark" || (mode === "system" && systemDark);
   const { paper, card, ink, teal } = theme.colors[isDark ? "dark" : "light"];
@@ -444,8 +445,12 @@ function applyTheme(theme: ColorTheme, mode: ColorMode, systemDark: boolean) {
   root.style.setProperty("--muted", `color-mix(in srgb, ${ink} 65%, ${card})`);
   root.style.setProperty("--line", `color-mix(in srgb, ${ink} 16%, ${card})`);
   root.style.setProperty("--focus", teal);
-  root.style.setProperty("--accent", isDark ? "#FF7586" : "#C8102E");
-  root.style.setProperty("--sun", isDark ? "#F5C842" : "#F2B705");
+  root.style.setProperty("--accent", theme.id === "noel"
+    ? isDark ? "#E8838A" : "#C8102E"
+    : isDark ? "#FF7586" : "#C8102E");
+  root.style.setProperty("--sun", theme.id === "noel"
+    ? isDark ? "#E8C37A" : "#D9A441"
+    : isDark ? "#F5C842" : "#F2B705");
   root.style.setProperty("--ok", isDark ? "#4CC38A" : "#23885A");
   root.style.setProperty("--ok-soft", `color-mix(in srgb, var(--ok) 18%, ${card})`);
   root.style.setProperty("--warn-soft", `color-mix(in srgb, var(--accent) 15%, ${card})`);

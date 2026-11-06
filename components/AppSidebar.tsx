@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Video } from "lucide-react";
 import { ACTIVITY_NAMES, type Gender, WordPicture } from "./activities/shared";
 import type { Theme } from "./activities/data";
@@ -35,6 +36,7 @@ const ACTIVITY_ICONS: Record<string, string> = {
   jacques: "🏃",
   manque: "❔",
   lettre: "🔤",
+  pendu: "🪢",
   enregistre: "🎙️"
 };
 
@@ -47,16 +49,28 @@ type Props = {
 };
 
 export default function AppSidebar({ activityId, theme, themes, gender, onThemeChange }: Props) {
-  const { isMobile, setOpenMobile } = useSidebar();
-  const closeMobile = () => {
+  const { isMobile, open, setOpen, setOpenMobile } = useSidebar();
+  const closeMenu = () => {
     if (isMobile) setOpenMobile(false);
+    else setOpen(false);
   };
 
+  useEffect(() => {
+    if (isMobile || !open) return;
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!(event.target instanceof Element)) return;
+      if (event.target.closest('[data-slot="sidebar-container"], [data-slot="sidebar-trigger"]')) return;
+      setOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
+  }, [isMobile, open, setOpen]);
+
   return (
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar side="right" collapsible="offcanvas" variant="floating">
       <SidebarHeader>
         <div className="sidebar-header-row">
-          <a className="brand sidebar-brand" href="#" aria-label="Pas à pas — accueil" onClick={closeMobile}>
+          <a className="brand sidebar-brand" href="#" aria-label="Pas à pas — accueil" onClick={closeMenu}>
             <svg className="brand-mark brand-mark-default" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
               <rect x="1" y="1" width="38" height="38" rx="11" fill="var(--teal)" />
               <ellipse cx="14" cy="24" rx="5" ry="7.5" fill="#fff" />
@@ -66,7 +80,7 @@ export default function AppSidebar({ activityId, theme, themes, gender, onThemeC
               <circle cx="24" cy="8" r="1.8" fill="var(--sun)" />
               <circle cx="28" cy="7.5" r="1.6" fill="var(--sun)" />
             </svg>
-            <img className="brand-mark brand-mark-halloween" src={`${BASE_PATH}/favicon-halloween.svg`} alt="" />
+            <img className="brand-mark brand-mark-noel" src={`${BASE_PATH}/favicon-noel.svg`} alt="" />
             <span>
               <b>Pas à pas</b>
               <small>Français de base · 4<sup>e</sup>–5<sup>e</sup> année</small>
@@ -88,7 +102,7 @@ export default function AppSidebar({ activityId, theme, themes, gender, onThemeC
                     isActive={activityId === id}
                     tooltip={name}
                   >
-                    <a href={`#${id}`} onClick={closeMobile}>
+                    <a href={`#${id}`} onClick={closeMenu}>
                       <span aria-hidden="true">{ACTIVITY_ICONS[id]}</span>
                       <span>{name}</span>
                     </a>
@@ -110,7 +124,7 @@ export default function AppSidebar({ activityId, theme, themes, gender, onThemeC
                     tooltip={item.name}
                     onClick={() => {
                       onThemeChange(item);
-                      closeMobile();
+                      closeMenu();
                     }}
                   >
                     <span className="sidebar-theme-icon" aria-hidden="true">
@@ -128,7 +142,7 @@ export default function AppSidebar({ activityId, theme, themes, gender, onThemeC
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild tooltip="Vidéos">
-              <a href="#videos" onClick={closeMobile}>
+              <a href="#videos" onClick={closeMenu}>
                 <Video aria-hidden="true" />
                 <span>Vidéos</span>
               </a>

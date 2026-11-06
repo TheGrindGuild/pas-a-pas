@@ -75,9 +75,6 @@ export const THEMES: Theme[] = [
   { id: "routine", name: "La routine du matin", words: [
     {fr:"Quelle est la date ?", e:"📅"}, {fr:"Quel temps fait-il ?", e:"🌤️"}, {fr:"Comment ça va ?", e:"🙂"},
     {fr:"présent", f:"présente", e:"🙋"}, {fr:"Je m'appelle…", e:"📛"}, {fr:"Bonne journée !", e:"🌞"} ] },
-  { id: "halloween", name: "L'Halloween", words: [
-    {fr:"la citrouille", e:"🎃"}, {fr:"le fantôme", e:"👻"}, {fr:"le sorcier", f:"la sorcière", e:"🧙‍♂️", ef:"🧙‍♀️"}, {fr:"la chauve-souris", e:"🦇"},
-    {fr:"l'araignée", e:"🕷️"}, {fr:"les bonbons", e:"🍬"}, {fr:"le costume", e:"🎭"}, {fr:"la lune", e:"🌕"}, {fr:"le squelette", e:"💀"} ] },
   { id: "hiver", name: "L'hiver", words: [
     {fr:"la neige", e:"🌨️"}, {fr:"le bonhomme de neige", e:"⛄"}, {fr:"le traîneau", e:"🛷"}, {fr:"les patins", e:"⛸️"},
     {fr:"la glace", e:"🧊"}, {fr:"le chocolat chaud", e:"☕"}, {fr:"le ski", e:"🎿"}, {fr:"le pingouin", e:"🐧"} ] },

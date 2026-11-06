@@ -6,6 +6,7 @@ const basePath = isGitHubPages ? "/pas-a-pas" : "";
 const nextConfig: NextConfig = {
   output: "export",
   basePath,
+  allowedDevOrigins: ["10.24.56.64"],
   images: {
     unoptimized: true
   },

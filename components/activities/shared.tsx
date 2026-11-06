@@ -85,6 +85,7 @@ export const ACTIVITY_GUIDANCE: Record<string, string> = {
   jacques: "Écoute l'ordre. Bouge seulement si Jacques a dit !",
   manque: "Regarde les images. Laquelle est partie ?",
   lettre: "Regarde l'image et écoute le mot. Quelle lettre manque ?",
+  pendu: "Lis l'indice, puis choisis les lettres pour deviner le mot. E révèle aussi é, è et ê.",
   enregistre: "Écoute le mot. Touche le micro et dis le mot."
 };
 
@@ -103,6 +104,7 @@ export const ACTIVITY_NAMES: Record<string, string> = {
   jacques: "Jacques a dit",
   manque: "Qu'est-ce qui manque ?",
   lettre: "La lettre manquante",
+  pendu: "Devine le mot",
   enregistre: "Enregistre-toi"
 };
 
